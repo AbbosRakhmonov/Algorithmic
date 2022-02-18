@@ -1,0 +1,65 @@
+@use "../../Styles/colors" as c;
+@import "../../Styles/fonts";
+
+.team-card {
+  width: 270px;
+  margin: 0 auto;
+  padding: 20px 5px;
+  border-radius: 8px;
+  box-shadow: -8px -8px 16px #ffffff, 10px 10px 19px #e5ebf1;
+  backdrop-filter: blur(50px);
+  text-align: center;
+  cursor: pointer;
+  transition: 0.3s linear;
+
+  .team-member-image {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 20px;
+
+    img {
+      display: block;
+    }
+  }
+
+  .team-member-name {
+    font-family: "Open-Sans-Semibold", sans-serif;
+    font-size: 18px;
+    color: c.$text-color;
+  }
+
+  .team-member-position {
+    font-family: "Open-Sans-Regular", sans-serif;
+    font-size: 14px;
+    color: c.$text-color;
+    margin-bottom: 14px;
+  }
+
+  .social-networks {
+    width: max-content;
+    margin: 6px auto;
+
+    .social-item {
+      display: inline-block;
+
+      .social-link {
+        font-size: 18px;
+        color: c.$text-color;
+        transition: 0.3s ease-in-out;
+
+        &:hover {
+          color: c.$icon-bg-color;
+        }
+      }
+
+      &:not(:last-child) {
+        margin-right: 15px;
+      }
+    }
+  }
+
+  &:hover {
+    box-shadow: none;
+  }
+}

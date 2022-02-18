@@ -1,0 +1,70 @@
+@use "../../Styles/colors" as c;
+@import "../../Styles/fonts";
+
+.conf-nav {
+  margin-top: 15px;
+  margin-bottom: 20px;
+  padding-right: 5px;
+
+  .breadcrumb {
+    font-family: "Open-Sans-Bold", sans-serif;
+    font-size: 1rem;
+    color: c.$text-color-bold;
+    margin-bottom: 0;
+  }
+
+  .conf-profile {
+    .breadcrumb-btn {
+      font-family: "Open-Sans-Semibold", sans-serif;
+      font-size: 1rem;
+      letter-spacing: -0.387234px;
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      margin-right: 15px;
+      color: c.$text-color;
+      transition: 0.3s ease;
+
+      .breadcrumb-icon {
+        font-size: 20px;
+      }
+
+      .link-name {
+        margin-left: 5px;
+      }
+
+      &:hover {
+        color: c.$icon-bg-color;
+      }
+    }
+
+    .notifications {
+      font-size: 20px;
+      color: c.$text-color;
+      position: relative;
+      cursor: pointer;
+
+      &:hover {
+        color: c.$icon-bg-color;
+      }
+
+      .notif-counter {
+        font-size: 10px;
+        color: #ffffff;
+        width: 16px;
+        height: 16px;
+        padding: 5px;
+        border-radius: 50%;
+        border: 1px solid #ffffff;
+        background-color: c.$notification-color;
+        position: absolute;
+        top: 1px;
+        right: -5px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        overflow: hidden;
+      }
+    }
+  }
+}

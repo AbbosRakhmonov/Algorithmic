@@ -1,0 +1,62 @@
+@use "../../Styles/colors" as c;
+@import "../../Styles/fonts";
+
+.tasks-list {
+  height: 100%;
+  overflow-x: hidden;
+  overflow-y: auto;
+  border-radius: 0;
+
+  &::-webkit-scrollbar {
+    width: 2px;
+    height: 2px;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background: rgba(103, 116, 142, 0.2);
+    border-radius: 10px;
+  }
+
+  &::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  .list-group-item {
+    width: 100%;
+    background: #fff;
+    margin-bottom: 1rem;
+    display: flex;
+    align-items: center;
+    transition: 0.3s ease;
+    position: relative;
+
+    .tasks-link {
+      width: 100%;
+      height: 100%;
+      padding: 10px 15px;
+      font-family: "Open-Sans-Semibold", sans-serif;
+      font-size: 14px;
+      color: c.$text-color-bold;
+      text-align: start;
+      text-overflow: ellipsis;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.03);
+
+      &:not(.active) {
+        &:hover {
+          background-color: c.$text-color;
+          color: #fff;
+        }
+      }
+
+      &:focus {
+        box-shadow: none;
+      }
+    }
+
+    .active {
+      background-color: c.$icon-bg-color;
+      box-shadow: none;
+      color: #ffffff;
+    }
+  }
+}

@@ -1,0 +1,17 @@
+@use "../../Styles/colors" as c;
+@import "../../Styles/fonts";
+
+.contests {
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  font-family: "Open-Sans-Semibold", sans-serif;
+  color: rgba(c.$text-color, 0.1);
+
+  .contest-title {
+    font-size: 3rem;
+    letter-spacing: 0.5rem;
+  }
+}

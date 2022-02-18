@@ -1,0 +1,75 @@
+.cm-s-xcode.CodeMirror {
+  color: #000000;
+  background: #ffffff;
+}
+.cm-s-xcode span.cm-meta {
+  color: rgb(127, 75, 48);
+}
+.cm-s-xcode span.cm-keyword {
+  color: #c800a4;
+}
+.cm-s-xcode span.cm-atom {
+  color: rgb(178, 58, 158);
+}
+.cm-s-xcode span.cm-number {
+  color: #3a00dc;
+}
+.cm-s-xcode span.cm-def {
+  color: rgb(16, 51, 246);
+}
+.cm-s-xcode span.cm-variable {
+  color: black;
+}
+.cm-s-xcode span.cm-variable-2 {
+  color: rgb(105, 64, 164);
+}
+.cm-s-xcode span.cm-variable-3 {
+  color: #c900a4;
+}
+.cm-s-xcode span.cm-property {
+  color: black;
+}
+.cm-s-xcode span.cm-operator {
+  color: #c800a4;
+}
+.cm-s-xcode span.cm-comment {
+  color: #008e00;
+}
+.cm-s-xcode span.cm-string {
+  color: #df0002;
+}
+.cm-s-xcode span.cm-string-2 {
+  color: rgb(193, 52, 32);
+}
+.cm-s-xcode span.cm-error {
+  color: #f00;
+}
+.cm-s-xcode span.cm-qualifier {
+  color: #555;
+}
+.cm-s-xcode span.cm-builtin {
+  color: rgb(178, 58, 158);
+}
+.cm-s-xcode span.cm-bracket {
+  color: #cc7;
+}
+.cm-s-xcode span.cm-tag {
+  color: rgb(16, 51, 246);
+}
+.cm-s-xcode span.cm-attribute {
+  color: #036a07;
+}
+
+.cm-s-xcode .CodeMirror-matchingbracket {
+  outline: 1px solid gray;
+  color: black !important;
+}
+.cm-s-xcode .CodeMirror-activeline-background {
+  background: rgb(238, 245, 254) !important;
+}
+.cm-s-xcode .CodeMirror-matchhighlight {
+  background: #e9e9e9;
+}
+.cm-s-xcode div.CodeMirror-selected {
+  background: rgb(185, 214, 252);
+}

@@ -1,0 +1,124 @@
+@use "./Styles/colors" as c;
+@import "./Styles/fonts";
+
+* {
+  box-sizing: border-box !important;
+  margin: 0;
+  padding: 0;
+}
+
+.h-100vh {
+  min-height: 100vh;
+  max-height: 100vh;
+}
+
+html,
+body,
+blockquote,
+code,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+pre {
+  margin: 0;
+  padding: 0;
+}
+
+button,
+fieldset,
+form,
+input,
+legend,
+textarea,
+select {
+  margin: 0;
+  padding: 0;
+}
+
+fieldset {
+  border: 0;
+}
+
+a,
+a * {
+  cursor: pointer;
+}
+
+hr,
+img {
+  border: 0;
+}
+
+applet,
+iframe,
+object {
+  border: 0;
+  margin: 0;
+  padding: 0;
+}
+
+button,
+input[type="button"],
+input[type="image"],
+input[type="reset"],
+input[type="submit"],
+label {
+  cursor: pointer;
+}
+
+ul,
+li {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+strong {
+  font-weight: bold;
+}
+
+em {
+  font-style: italic;
+}
+
+body {
+  background: c.$bg-color;
+  overflow-x: hidden;
+  overflow-y: auto;
+
+  &::-webkit-scrollbar {
+    width: 5px;
+    height: 2px;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background: rgba(103, 116, 142, 0.2);
+    border-radius: 10px;
+  }
+
+  &::-webkit-scrollbar-track {
+    background: rgb(255, 255, 255);
+  }
+}
+
+input:-webkit-autofill,
+input:-webkit-autofill:focus,
+textarea:-webkit-autofill,
+textarea:-webkit-autofill:focus,
+select:-webkit-autofill,
+select:-webkit-autofill:focus {
+  -webkit-text-fill-color: c.$text-color-bold;
+  box-shadow: 0 0 0 1000px rgba(255, 255, 255, 0) inset;
+  transition: background-color 5000s ease-in-out 0s;
+}
+
+input:-webkit-autofill:hover,
+textarea:-webkit-autofill:hover,
+select:-webkit-autofill:hover {
+  transition: background-color 5000s ease-in-out 0s;
+  box-shadow: 0 0 0 1000px rgba(255, 0, 0, 0) inset;
+}

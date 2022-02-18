@@ -1,0 +1,27 @@
+@use "../../Styles/colors" as c;
+@import "../Login/for_login";
+
+.forgotLink {
+  color: c.$text-color;
+  text-decoration: none;
+  transition: 0.3s ease;
+
+  &:hover {
+    color: c.$icon-bg-color;
+  }
+}
+
+.fullNameDirty,
+.usernameDirty,
+.emailDirty,
+.passwordDirty,
+.passwordAgainDirty {
+  margin-bottom: 2px !important;
+  border-color: c.$notification-color !important;
+
+  & + .validate-text {
+    height: auto !important;
+    visibility: visible !important;
+    margin-bottom: 10px !important;
+  }
+}

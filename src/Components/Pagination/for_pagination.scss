@@ -1,0 +1,47 @@
+@use "../../Styles/colors" as c;
+
+.table-pagination {
+  .page-item {
+    &:first-child {
+      .page-link {
+        border-top-left-radius: 8px;
+        border-bottom-left-radius: 8px;
+        padding: 8px;
+      }
+    }
+
+    &:last-child {
+      .page-link {
+        border-top-right-radius: 8px;
+        border-bottom-right-radius: 8px;
+        padding: 8px;
+      }
+    }
+
+    .page-link {
+      border: none;
+      padding: 8px 13px;
+      font-family: "Open-Sans", sans-serif;
+      font-size: 14px;
+      color: c.$text-color;
+
+      &:focus {
+        box-shadow: none;
+      }
+    }
+  }
+
+  .disabled {
+    .page-link {
+      background-color: c.$border-color;
+      color: #ffffff;
+    }
+  }
+
+  .active {
+    .page-link {
+      background-color: c.$icon-bg-color;
+      color: #ffffff;
+    }
+  }
+}

@@ -1,0 +1,179 @@
+@use "../../Styles/colors" as c;
+@import "../../Styles/fonts";
+
+.table-container {
+  overflow-y: auto;
+
+  &::-webkit-scrollbar {
+    width: 2px;
+    height: 2px;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background: rgba(103, 116, 142, 0.1);
+    border-radius: 10px;
+  }
+
+  &::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  .unic-table {
+    position: absolute;
+    width: 100%;
+    border: none;
+    vertical-align: middle;
+    border-collapse: separate;
+    border-spacing: 0;
+
+    .table-header {
+      position: sticky;
+      z-index: 3;
+      top: 0;
+      background-color: c.$bg-color;
+      font-family: "Open-Sans-Semibold", sans-serif;
+      font-size: 14px;
+      color: c.$text-color;
+      text-transform: capitalize;
+
+      tr {
+        transition: 0.2s ease;
+
+        th {
+          padding: 5px;
+          transition: 0.2s ease;
+          border-bottom: 2px solid #c2c9d1;
+        }
+      }
+
+      .current-user-row {
+        vertical-align: middle;
+        background-color: c.$text-color;
+        color: #ffffff;
+
+        td {
+          border: none;
+          padding: 5px;
+
+          .table-row-text {
+            a {
+              color: #ffffff;
+              transition: 0.2s ease;
+
+              &:hover {
+                color: c.$badge-disabled-color;
+              }
+            }
+          }
+
+          .user-name {
+            color: #e4e7e7;
+          }
+        }
+
+        .user-name-image {
+          border: 2px solid #ffffff;
+        }
+      }
+    }
+
+    .table-body {
+      border: none;
+
+      tr,
+      td {
+        border: none;
+      }
+
+      td {
+        padding: 5px;
+      }
+
+      .status-icon {
+        font-size: 18px;
+        filter: drop-shadow(0px 4px 6px rgba(0, 0, 0, 0.2));
+        color: c.$icon-bg-color;
+      }
+
+      .accepted {
+        color: c.$text-color-green;
+      }
+
+      .error {
+        color: c.$notification-color;
+      }
+
+      .easy {
+        color: #00ff75;
+      }
+
+      .medium {
+        color: c.$star-active-color;
+      }
+
+      .hard {
+        color: c.$problem-status-color-hard;
+      }
+    }
+
+    .table-row-text {
+      font-family: "Open-Sans", sans-serif;
+      font-size: 14px;
+      color: c.$text-color-bold;
+      transition: 0.3s ease;
+
+      a {
+        color: c.$text-color-bold;
+        text-decoration: none;
+
+        &:hover {
+          color: c.$icon-bg-color;
+        }
+      }
+    }
+
+    .user-name {
+      font-size: 12px;
+      color: c.$text-color;
+    }
+
+    .user-name-image {
+      width: 35px;
+      height: 35px;
+      overflow: hidden;
+      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.12),
+        0px 2px 4px -1px rgba(0, 0, 0, 0.07);
+      background: #ffffff;
+      border-radius: 8px;
+
+      img {
+        width: 100%;
+        border: none;
+      }
+    }
+  }
+
+  .table-striped > tbody > tr:nth-of-type(odd) > * {
+    background-color: #ffffff;
+    box-shadow: none;
+    color: c.$text-color-bold;
+  }
+}
+
+.scrolled {
+  .unic-table {
+    .table-header {
+      color: #ffffff;
+      box-shadow: 0 5px 10px rgba(0, 0, 0, 0.05);
+
+      tr {
+        background-color: c.$text-color-bold;
+
+        th {
+          padding: 15px 5px;
+          border-color: #ffffff;
+        }
+      }
+    }
+  }
+}

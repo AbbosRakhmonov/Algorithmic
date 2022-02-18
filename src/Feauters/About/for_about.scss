@@ -1,0 +1,33 @@
+@use "../../Styles/colors" as c;
+@import "../../Styles/fonts";
+
+#about {
+  overflow-x: hidden;
+  overflow-y: auto;
+  text-align: center;
+
+  &::-webkit-scrollbar {
+    width: 2px;
+    height: 2px;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background: rgba(103, 116, 142, 0.2);
+    border-radius: 10px;
+  }
+
+  &::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  .about-title {
+    font-family: "Open-Sans-Semibold", sans-serif;
+    font-size: 24px;
+    color: c.$text-color-bold;
+    margin-bottom: 30px;
+  }
+
+  .card-container {
+    margin-bottom: 50px;
+  }
+}

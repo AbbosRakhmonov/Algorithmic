@@ -1,0 +1,43 @@
+@use "../../Styles/colors" as c;
+@use "../../Styles/mixins" as m;
+@import "../../Styles/fonts";
+
+.input-group {
+  @include m.statics-shadow();
+  transition: 0.3s ease;
+
+  &:focus-within {
+    @include m.menu-shadow();
+  }
+
+  .input-group-text {
+    background-color: #ffffff;
+    border-top-left-radius: 8px;
+    border-bottom-left-radius: 8px;
+    border: none;
+    padding: 11px 4px 11px 11px;
+    color: c.$secondary-color;
+    font-size: 18px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .search-box {
+    border-top-right-radius: 8px;
+    border-bottom-right-radius: 8px;
+    border: none;
+    padding: 11px 11px 11px 8px;
+    font-family: "Open-Sans-Semibold", sans-serif;
+    font-size: 14px;
+    color: c.$text-color;
+
+    &:focus {
+      box-shadow: none;
+    }
+
+    &::placeholder {
+      color: c.$secondary-color;
+    }
+  }
+}

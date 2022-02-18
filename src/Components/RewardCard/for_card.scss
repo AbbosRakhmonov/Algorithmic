@@ -1,0 +1,97 @@
+@use "../../Styles/colors" as c;
+@use "../../Styles/mixins" as m;
+@import "../../Styles/fonts";
+
+a {
+  text-decoration: none;
+
+  .reward-card {
+    display: flex;
+    align-items: center;
+    padding: 8px 10px;
+    border-radius: 8px;
+    background-color: #ffffff;
+    margin-bottom: 15px;
+    position: relative;
+    @include m.icon-shadow();
+    transition: 0.3s ease-in-out;
+
+    .user-image {
+      width: 64px;
+      height: 64px;
+      overflow: hidden;
+      border-radius: 8px;
+      object-fit: cover;
+      margin-right: 15px;
+      border: 2px solid #ffffff;
+
+      img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+    }
+
+    .user-info {
+      .user-name {
+        font-family: "Open-Sans-Semibold", sans-serif;
+        font-size: 16px;
+        color: c.$text-color-bold;
+        transition: 0.3s ease-in-out;
+      }
+
+      .user-status {
+        font-family: "Open-Sans", sans-serif;
+        font-size: 14px;
+        color: c.$text-color;
+        transition: 0.3s ease-in-out;
+      }
+      .rate-stars{
+        font-size: 14px;
+        vertical-align: top;
+        .rc-rate-star{
+          color: c.$star-disabled-color;
+        }
+        .rc-rate-star-full .rc-rate-star-second{
+          color: c.$star-active-color;
+        }
+        .star-icon {
+          font-size: 14px;
+        }
+      }
+    }
+
+    .medal {
+      position: absolute;
+      right: 5px;
+      top: 0;
+    }
+
+    .user-rate {
+      font-family: "Open-Sans-Semibold", sans-serif;
+      font-size: 16px;
+      color: c.$text-color-bold;
+      position: absolute;
+      right: 5px;
+      bottom: 5px;
+      transition: 0.3s ease-in-out;
+    }
+
+    &:hover {
+      background-color: c.$text-color;
+      @include m.menu-shadow();
+
+      .user-name {
+        color: #ffffff;
+      }
+
+      .user-status {
+        color: #ffffff;
+      }
+
+      .user-rate {
+        color: #ffffff;
+      }
+    }
+  }
+}

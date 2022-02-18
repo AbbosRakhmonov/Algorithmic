@@ -1,0 +1,8 @@
+@use "../../Styles/colors" as c;
+@use "../../Styles/mixins" as m;
+
+.leader-board {
+  .search-bar {
+    margin-bottom: 40px;
+  }
+}

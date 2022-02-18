@@ -1,0 +1,31 @@
+@use "../../Styles/colors" as c;
+@import "../../Styles/fonts";
+
+.action-container {
+  padding-top: 20px;
+  text-align: right;
+
+  .submit-btn {
+    font-family: "Open-Sans-Semibold", sans-serif;
+    font-size: 14px;
+    color: #ffffff;
+    background-color: c.$text-color-green;
+    padding: 8px 10px;
+    border-radius: 8px;
+    border: none;
+    transition: 0.3s ease;
+
+    &:hover {
+      background-color: c.$text-color;
+    }
+
+    &:active {
+      background-color: c.$text-color-bold;
+    }
+
+    &:focus {
+      outline: none;
+      box-shadow: none;
+    }
+  }
+}

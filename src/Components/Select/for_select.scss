@@ -1,0 +1,20 @@
+@use "../../Styles/colors" as c;
+@import "../../Styles/fonts";
+
+.title {
+  font-family: "Open-Sans-Semibold", sans-serif;
+  font-size: 18px;
+  color: c.$text-color-bold;
+  margin-bottom: 10px;
+}
+
+.select-language {
+  font-family: "Open-Sans", sans-serif;
+  font-size: 14px;
+  color: c.$text-color-bold;
+  border: 2px solid c.$login-border-color !important;
+
+  &:focus {
+    box-shadow: none;
+  }
+}

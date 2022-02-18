@@ -1,0 +1,98 @@
+@use "../../Styles/colors" as c;
+@import "../../Styles/fonts";
+
+.card-container {
+  border: 0;
+  padding: 0;
+  margin-bottom: 20px;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.02);
+  border-radius: 8px;
+
+  .news-card {
+    border: 0;
+    max-height: 210px;
+    padding: 20px;
+    overflow: hidden;
+
+    .card-image-container {
+      width: 100%;
+      max-height: 170px;
+      border-radius: 8px;
+      overflow: hidden;
+
+      img {
+        display: block;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+    }
+
+    .news-card-body {
+      padding-left: 20px;
+      height: 170px;
+      overflow: hidden;
+
+      .card-title-container {
+        max-height: 54px;
+        overflow: hidden;
+        margin-bottom: 10px;
+
+        .card-title {
+          overflow: hidden;
+          text-overflow: ellipsis;
+          white-space: initial;
+          display: -webkit-box;
+          -webkit-line-clamp: 2;
+          -webkit-box-orient: vertical;
+          width: 100%;
+          font-family: "Open-Sans-Bold", sans-serif;
+          font-size: 20px;
+          color: c.$text-color-bold;
+          margin-bottom: 0;
+        }
+      }
+
+      .card-text-container {
+        max-height: 76px;
+        overflow: hidden;
+        margin-bottom: 10px;
+
+        .card-text {
+          width: 100%;
+          font-family: "Open-Sans", sans-serif;
+          font-size: 16px;
+          color: c.$text-color;
+          overflow: hidden;
+          text-overflow: ellipsis;
+          white-space: initial;
+          display: -webkit-box;
+          -webkit-line-clamp: 3;
+          -webkit-box-orient: vertical;
+        }
+      }
+
+      .full-content {
+        display: flex;
+        justify-content: flex-end;
+
+        a {
+          text-decoration: none;
+          color: c.$text-color;
+          display: flex;
+          font-family: "Open-Sans-Semibold", sans-serif;
+          align-items: center;
+          font-size: 14px;
+
+          &:hover {
+            color: c.$icon-bg-color;
+          }
+        }
+
+        span {
+          margin-right: 5px;
+        }
+      }
+    }
+  }
+}

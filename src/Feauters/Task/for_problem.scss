@@ -1,0 +1,105 @@
+@use "../../Styles/colors" as c;
+@import "../../Styles/fonts";
+
+.problem-container {
+  .problem-title {
+    font-family: "Open-Sans-Semibold", sans-serif;
+    font-size: 24px;
+    color: c.$text-color-bold;
+  }
+
+  .line {
+    width: 100%;
+    display: block;
+    height: 2px;
+    background-color: #e4e7e7;
+    margin: 10px 0;
+  }
+
+  .problem-configuration {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+
+    .conf-item {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      color: c.$secondary-color;
+      font-family: "Open-Sans-Medium", sans-serif;
+      font-size: 12px;
+
+      &:not(:last-child) {
+        margin-right: 15px;
+      }
+
+      .conf-icon {
+        font-size: 18px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-right: 5px;
+      }
+    }
+
+    .easy {
+      color: #00ff75;
+    }
+
+    .medium {
+      color: #ffd01d;
+    }
+
+    .hard {
+      color: #bf392c;
+    }
+  }
+
+  .problem-title-container {
+    margin: 20px 0;
+
+    .problem-title {
+      font-family: "Open-Sans", sans-serif;
+      font-size: 14px;
+
+      &:not(:last-child) {
+        margin-bottom: 20px;
+      }
+    }
+  }
+
+  .input-container,
+  .output-container {
+    margin-bottom: 20px;
+
+    .input-header,
+    .output-header {
+      font-family: "Open-Sans-Semibold", sans-serif;
+      font-size: 18px;
+      color: c.$text-color-bold;
+      margin-bottom: 10px;
+    }
+
+    .input-data,
+    .output-data {
+      font-family: "Open-Sans", sans-serif;
+      font-size: 14px;
+      color: c.$text-color-bold;
+    }
+  }
+
+  .examples-container {
+    .examples-header {
+      font-family: "Open-Sans-Semibold", sans-serif;
+      font-size: 14px;
+      color: c.$text-color-bold;
+      margin-bottom: 10px;
+    }
+
+    .table-container {
+      .unic-table {
+        position: relative;
+      }
+    }
+  }
+}

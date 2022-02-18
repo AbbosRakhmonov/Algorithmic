@@ -1,0 +1,15 @@
+@use "../../Styles/colors" as c;
+@import "../../Styles/fonts";
+
+.badge {
+  font-family: "Open-Sans", sans-serif;
+  font-size: 10px;
+  font-weight: 400;
+  line-height: 14px;
+  color: #ffffff;
+  background-color: c.$badge-disabled-color;
+  padding: 3px 8px;
+  border-radius: 16px;
+  margin-top: 5px;
+  margin-right: 5px;
+}
