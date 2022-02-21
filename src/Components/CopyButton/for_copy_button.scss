@@ -1,0 +1,25 @@
+@use "../../Styles/colors" as c;
+
+.copy-btn {
+  padding: 3px;
+  border-radius: 4px;
+  background-color: c.$text-color;
+  color: #ffffff;
+  transition: .2s ease;
+  font-size: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  &:hover{
+    background-color: c.$icon-bg-color;
+    color: #ffffff;
+  }
+  &:active {
+    transform: scale(0.95);
+  }
+
+  &:focus {
+    box-shadow: none;
+  }
+}

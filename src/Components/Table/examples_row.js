@@ -1,4 +1,5 @@
 import React from "react";
+import Copy from "../CopyButton/Copy_Button";
 
 function ExamplesRow({ data, fields, dataAos }) {
   return (
@@ -15,7 +16,24 @@ function ExamplesRow({ data, fields, dataAos }) {
           </td>
           {fields.map((field, index) => (
             <td key={index}>
-              <h3 className={`table-row-text`}>{example[field]}</h3>
+              <div
+                className={`${
+                  field === "inPut" || field === "outPut"
+                    ? "d-flex justify-content-between"
+                    : ""
+                }`}
+              >
+                <h3 className={`table-row-text`}>{example[field]}</h3>
+                <div
+                  className={`${
+                    field === "inPut" || field === "outPut"
+                      ? "btn-container"
+                      : "d-none"
+                  }`}
+                >
+                  <Copy text={example[field]} />
+                </div>
+              </div>
             </td>
           ))}
         </tr>

@@ -99,6 +99,40 @@
     .table-container {
       .unic-table {
         position: relative;
+        border: 2px solid c.$star-disabled-color;
+        .table-header {
+          tr{
+            th {
+              &:not(:last-child) {
+              border-right: 2px solid c.$star-disabled-color;
+              }
+              border-bottom-color: c.$star-disabled-color;
+              &:first-child{
+                width: 30px;
+                text-align: center;
+              }
+            }
+          }
+        }
+        .table-body {
+          tr {
+            &:not(:last-child) {
+              border-bottom: 2px solid c.$star-disabled-color !important;
+              td {
+                  border-bottom: 2px solid c.$star-disabled-color;
+              }
+            }
+            td {
+              &:not(:last-child) {
+                border-right: 2px solid c.$star-disabled-color;
+              }
+              &:first-child{
+                width: 30px;
+                text-align: center;
+              }
+            }
+          }
+        }
       }
     }
   }

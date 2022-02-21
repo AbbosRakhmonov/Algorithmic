@@ -80,9 +80,11 @@
     .table-body {
       border: none;
 
-      tr,
-      td {
+      tr {
         border: none;
+        td{
+        border: none;
+      }
       }
 
       td {

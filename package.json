@@ -27,6 +27,7 @@
     "react-router-dom": "^6.2.1",
     "react-scripts": "5.0.0",
     "react-split": "^2.0.14",
+    "react-tooltip": "^4.2.21",
     "react-transition-group": "^4.4.2",
     "reactstrap": "^9.0.1",
     "sass": "^1.49.0",
