@@ -14,19 +14,6 @@ export const getToken = createAsyncThunk(
     }
   }
 );
-export const setIsLoggedIn = createAsyncThunk(
-  "login/setIsLoggedIn",
-  async (data, { rejectWithValue }) => {
-    const res = await Api.post("/auth/login", data).then((res) => res.data);
-    if (res.ok) {
-      return res.data;
-    } else {
-      return rejectWithValue({
-        message: "Please sign in or sign up to continue",
-      });
-    }
-  }
-);
 export const addNewUser = createAsyncThunk(
   "login/addNewUser",
   async (user, { rejectWithValue }) => {
@@ -44,14 +31,21 @@ export const addNewUser = createAsyncThunk(
 const loginSlice = createSlice({
   name: "login",
   initialState: {
-    user: {},
+    user: null,
     isLoggedIn: false,
     isLoading: false,
     error: null,
   },
+  reducers: {
+    setIsLoggedIn: (state, { payload }) => {
+      state.isLoggedIn = payload.isLoggedIn;
+      state.user = payload.user;
+    },
+  },
   extraReducers: {
     [getToken.pending]: (state, action) => {
       state.isLoading = true;
+      state.error = null;
     },
     [getToken.fulfilled]: (state, action) => {
       state.isLoggedIn = true;
@@ -74,19 +68,7 @@ const loginSlice = createSlice({
       state.error = payload.message;
       state.isLoading = false;
     },
-    [setIsLoggedIn.pending]: (state, action) => {
-      state.isLoading = true;
-    },
-    [setIsLoggedIn.fulfilled]: (state, action) => {
-      state.isLoggedIn = true;
-      state.isLoading = false;
-      localStorage.setItem("accessToken", action.payload);
-    },
-    [setIsLoggedIn.rejected]: (state, { payload }) => {
-      state.error = payload.message;
-      state.isLoading = false;
-      localStorage.removeItem("accessToken");
-    },
   },
 });
 export default loginSlice.reducer;
+export const { setIsLoggedIn } = loginSlice.actions;

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Table from "../../Components/Table/Table";
 import SearchBox from "../../Components/SearchBox/searchBox";
 import "./for_problems.scss";
@@ -10,8 +10,11 @@ import {
 } from "reactstrap";
 import { IoChevronDown } from "react-icons/io5";
 import { motion } from "framer-motion";
+import { useDispatch, useSelector } from "react-redux";
+import { getProblems } from "./problemsSlice";
 
 function Problems(props) {
+  const dispatch = useDispatch();
   const [searchVal, setSearchVal] = useState("");
   const [tagsSearchVal, setTagsSearchVal] = useState("");
   const [statusBadgeVisible, setStatusBadgeVisible] = useState(false);
@@ -25,10 +28,16 @@ function Problems(props) {
   const [difficultyEasy, setDifficultyEasy] = useState(false);
   const [difficultyMedium, setDifficultyMedium] = useState(false);
   const [difficultyHard, setDifficultyHard] = useState(false);
+  const [filteredProblems, setFilteredProblems] = useState([]);
+  const { problems } = useSelector((state) => state.problems);
 
   const onSearch = (e) => {
     const val = e.target.value;
     setSearchVal(val);
+    const filteredData = problems.filter((problem) => {
+      return problem.title.toLowerCase().includes(val.toLowerCase());
+    });
+    setFilteredProblems(filteredProblems.length > 0 ? filteredData : problems);
   };
   const onTagsSearch = (e) => {
     const val = e.target.value;
@@ -105,49 +114,18 @@ function Problems(props) {
     setDifficultyHard(true);
     setSearchVal("");
   };
+  useEffect(() => {
+    dispatch(getProblems());
+  }, [dispatch]);
+  useEffect(() => {
+    setFilteredProblems(problems);
+  }, [problems]);
   const propForTable = {
     page: "problems",
-    data: [
-      {
-        id: 1,
-        status: "",
-        title: "A+B",
-        tags: ["Math", "DP", "BS", "COMB"],
-        difficulty: "1%",
-        accepted: "1200",
-        author: "Abbos Rakhmonov",
-      },
-      {
-        id: 2,
-        status: "accepted",
-        title: "Reverse Integer",
-        tags: ["Math", "DP", "BS", "COMB"],
-        difficulty: "20%",
-        accepted: "500",
-        author: "Abdulaziz Abdukhalilzoda",
-      },
-      {
-        id: 3,
-        status: "error",
-        title: "Palindrome Number",
-        tags: ["Math", "DP", "BS", "COMB"],
-        difficulty: "50%",
-        accepted: "100",
-        author: "Sardor Salimov",
-      },
-      {
-        id: 4,
-        status: "",
-        title: "Regular Expression",
-        tags: ["Math", "DP", "BS", "COMB"],
-        difficulty: "20%",
-        accepted: "400",
-        author: "Abbos Rakhmonov",
-      },
-    ],
+    data: filteredProblems,
     headers: {
       titles: ["Status", "Id", "Title", "Difficulty", "Accepted", "Author"],
-      fields: ["status", "id", "title", "difficulty", "accepted", "author"],
+      fields: ["stat", "id", "title", "difficulty", "rank", "author"],
     },
   };
   const pageTransition = {

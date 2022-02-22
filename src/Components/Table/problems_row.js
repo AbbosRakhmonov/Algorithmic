@@ -14,12 +14,12 @@ function ProblemsRow({ data, fields, dataAos }) {
           data-aos-duration={800}
         >
           {fields.map((field, index) =>
-            field === "status" ? (
+            field === "stat" ? (
               <td key={index}>
                 <span>
-                  {item[field] === "" ? (
+                  {item[field] === null ? (
                     <IoRemove className="status-icon" />
-                  ) : item[field] === "accepted" ? (
+                  ) : item[field] === "ok" ? (
                     <IoCheckmark className="status-icon accepted" />
                   ) : (
                     <IoCloseSharp className="status-icon error" />
@@ -50,8 +50,12 @@ function ProblemsRow({ data, fields, dataAos }) {
                       : "hard"
                   }`}
                 >
-                  {item[field]}
+                  {item[field] + " " + "%"}
                 </h3>
+              </td>
+            ) : field === "author" ? (
+              <td key={index}>
+                <h3 className={`table-row-text`}>{item[field]["fullName"]}</h3>
               </td>
             ) : (
               <td key={index}>

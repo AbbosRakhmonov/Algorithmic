@@ -6,7 +6,6 @@ import RewardCard from "../../Components/RewardCard/card";
 import Calendar from "../../Components/Calendar/calendar";
 import { useDispatch, useSelector } from "react-redux";
 import { getHomeData } from "./homeSlice";
-import { setIsLoggedIn } from "../Login/loginSlice";
 import { motion } from "framer-motion";
 import {
   HomeCardSkeleton,
@@ -17,7 +16,7 @@ import {
 import "./for_home.scss";
 import { Link } from "react-router-dom";
 
-function Home(props) {
+function Home() {
   const { data, error } = useSelector((state) => state.home);
   const dispatch = useDispatch();
   useEffect(() => {

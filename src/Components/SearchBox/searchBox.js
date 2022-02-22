@@ -14,6 +14,8 @@ function SearchBox({ value, onChange }) {
         placeholder="Type here..."
         id={"searchbox"}
         spellCheck={false}
+        value={value}
+        onChange={onChange}
       />
     </div>
   );

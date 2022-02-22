@@ -152,7 +152,7 @@ export default function Registration() {
     if (regEmpty.test(password)) {
       setPasswordDirty(true);
     }
-    if (regEmpty.test(passwordAgain)) {
+    if (regEmpty.test(passwordAgain) || password !== passwordAgain) {
       setPasswordAgainDirty(true);
     }
     if (

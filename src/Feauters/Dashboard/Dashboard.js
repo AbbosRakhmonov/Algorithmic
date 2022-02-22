@@ -1,13 +1,14 @@
 import React, { lazy, Suspense, useEffect, useState } from "react";
-import { Link, useLocation, Routes, Route, Navigate } from "react-router-dom";
+import { Link, Navigate, Route, Routes, useLocation } from "react-router-dom";
 import Navbar from "../../Components/Navbar/Navbar";
 import { IoNotifications, IoPersonCircle, IoSettings } from "react-icons/io5";
 import "./for_dashboard.scss";
 import { Offcanvas } from "reactstrap";
 import Loader from "../../Components/Loader/Loader";
-import { useSelector, useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { setIsLoggedIn } from "../Login/loginSlice";
 import { AnimatePresence, motion } from "framer-motion";
+import jwt_decode from "jwt-decode";
 
 const Home = lazy(() => import("../Home/Home"));
 const Problems = lazy(() => import("../Problems/Problems"));
@@ -27,15 +28,28 @@ export default function Dashboard() {
     : "Welcome to Algorithmic.Uz";
   const [activeProblem, setActiveProblem] = useState(false);
   const [offCanvasVisible, setOffCanvasVisible] = useState(false);
-  const { isLoggedIn } = useSelector((state) => state.login);
-
+  const { isLoggedIn, user } = useSelector((state) => state.login);
   const toogleOffCanvas = () => {
     setOffCanvasVisible(!offCanvasVisible);
   };
   useEffect(() => {
     const token = localStorage.getItem("accessToken");
-    if (token && !isLoggedIn) {
-      dispatch(setIsLoggedIn());
+    if (token) {
+      const decoded = jwt_decode(token);
+      if (decoded) {
+        if (decoded.exp < Date.now() / 1000) {
+          localStorage.removeItem("accessToken");
+        } else {
+          dispatch(
+            setIsLoggedIn({
+              isLoggedIn: true,
+              user: decoded,
+            })
+          );
+        }
+      } else {
+        localStorage.removeItem("accessToken");
+      }
     }
     setOffCanvasVisible(false);
     const problemPage = pathname.split("/")[3] === "p";
@@ -44,7 +58,7 @@ export default function Dashboard() {
     } else {
       setActiveProblem(false);
     }
-  }, [pathname]);
+  }, [dispatch, pathname]);
   const pageTransition = {
     in: {
       opacity: 1,
@@ -69,9 +83,9 @@ export default function Dashboard() {
             toggle={toogleOffCanvas}
             style={{ width: "320px" }}
           >
-            <Navbar />
+            <Navbar user={isLoggedIn && user} />
           </Offcanvas>
-          <Navbar />
+          <Navbar user={isLoggedIn && user} />
         </div>
         <div className={`${activeProblem ? "col-12" : "col-9 ps-0"} h-100vh`}>
           <div className="d-flex flex-column flex-nowrap h-100">

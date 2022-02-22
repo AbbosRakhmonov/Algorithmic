@@ -12,7 +12,7 @@ import GoogleIcon from "../../icons/Google.svg";
 import leftCircle from "../../icons/leftLoginCircle.svg";
 import rightCircle from "../../icons/rightLoginCircle.svg";
 import { useDispatch, useSelector } from "react-redux";
-import { getToken, setIsLoggedIn } from "./loginSlice";
+import { getToken } from "./loginSlice";
 import "./for_login.scss";
 import { motion } from "framer-motion";
 
@@ -33,14 +33,9 @@ export default function Login() {
     let str = e.target.value;
     setEmail(str);
     const regEmpty = /^\s*$/;
-    const regExp =
-      /^(([^<>()[\].,;:\s@"]+(\.[^<>()[\].,;:\s@"]+)*)|(".+"))@(([^<>()[\].,;:\s@"]+\.)+[^<>()[\].,;:\s@"]{2,})$/i;
     if (regEmpty.test(str)) {
       setEmailDirty(true);
       setEmailValidateText("* Please fill this field");
-    } else if (!regExp.test(str)) {
-      setEmailDirty(true);
-      setEmailValidateText("Please enter a valid email");
     } else {
       setEmailDirty(false);
       setEmailValidateText("");
@@ -78,6 +73,7 @@ export default function Login() {
   };
   const handleSubmit = (e) => {
     e.preventDefault();
+    console.log(email, password, emailDirty, passwordDirty);
     if (!emailDirty && email && !passwordDirty && password) {
       const user = {
         user: email,
@@ -147,7 +143,7 @@ export default function Login() {
                       <input
                         type="email"
                         className="form-control login-input email"
-                        placeholder="Email"
+                        placeholder="Email or username"
                         onChange={handleEmail}
                         onFocus={handleFocusEmail}
                         onBlur={handleBlurEmail}

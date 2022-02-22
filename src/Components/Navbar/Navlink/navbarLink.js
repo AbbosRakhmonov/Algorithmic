@@ -15,7 +15,7 @@ export default function NavbarLink({
       className={"list-group-item"}
       data-aos={"zoom-in"}
       data-aos-delay={dataAosDelay}
-      data-aos-duration={"500"}
+      data-aos-duration={"200"}
     >
       <NavLink
         className={`nav-link ${isActive ? "active" : ""} ${
