@@ -1,7 +1,6 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { IoPeople, IoCodeSlash, IoTrophy } from "react-icons/io5";
 import NewsItem from "../../Components/NewsCard/card";
-import Users from "../../Components/RewardCard/users";
 import RewardCard from "../../Components/RewardCard/card";
 import Calendar from "../../Components/Calendar/calendar";
 import { useDispatch, useSelector } from "react-redux";
@@ -134,10 +133,11 @@ function Home() {
               <div className="row flex-column flex-nowrap">
                 <div className="rewards-container">
                   {data ? (
-                    Users.map((user, idx) => (
+                    data.topUsers.map((user, idx) => (
                       <RewardCard
                         key={user.id}
                         user={user}
+                        index={idx + 1}
                         dataAosDelay={idx * 200}
                       />
                     ))

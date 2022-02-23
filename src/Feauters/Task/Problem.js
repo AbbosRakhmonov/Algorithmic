@@ -1,26 +1,21 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { IoFlash, IoHardwareChip, IoTime, IoPerson } from "react-icons/io5";
 import "./for_problem.scss";
 import Table from "../../Components/Table/Table";
 
-function Problem() {
+function Problem({ problem }) {
+  const [examples, setExamples] = useState([]);
   const propForTable = {
     page: "examples",
-    data: [
-      {
-        inPut: "1 3",
-        outPut: "4",
-      },
-      {
-        inPut: "4 5",
-        outPut: "9",
-      },
-    ],
+    data: examples,
     headers: {
       titles: ["#", "inputs", "outputs"],
       fields: ["inPut", "outPut"],
     },
   };
+  useEffect(() => {
+    problem && setExamples(problem.examples);
+  }, [problem]);
   const checkStatus = (status) => {
     if (status > 0 && status <= 19) return "easy";
     else if (status > 19 && status <= 50) return "medium";
@@ -28,68 +23,46 @@ function Problem() {
     else return "unknown";
   };
 
-  return (
+  return problem ? (
     <div className={"problem-container"}>
-      <h1 className={"problem-title"}>1. A+B</h1>
+      <h1 className={"problem-title"}>{`${problem.id}. ${problem.title}`}</h1>
       <span className="line"></span>
       <div className="problem-configuration">
-        <div className={`conf-item ${checkStatus(15)}`}>
+        <div className={`conf-item ${checkStatus(problem.difficulty)}`}>
           <span className="conf-icon">
             <IoFlash />
           </span>
-          <span className="conf-title">1%</span>
+          <span className="conf-title">{problem.difficulty}%</span>
         </div>
         <div className={`conf-item`}>
           <span className="conf-icon">
             <IoHardwareChip />
           </span>
-          <span className="conf-title">2 MB</span>
+          <span className="conf-title">{problem.memory} KB</span>
         </div>
         <div className={`conf-item`}>
           <span className="conf-icon">
             <IoTime />
           </span>
-          <span className="conf-title">2 s</span>
+          <span className="conf-title">{problem.time} ms</span>
         </div>
         <div className={`conf-item`}>
           <span className="conf-icon">
             <IoPerson />
           </span>
-          <span className="conf-title">Sardor Salimov</span>
+          <span className="conf-title">{problem.author.fullName}</span>
         </div>
       </div>
       <div className="problem-title-container">
-        <p className={"problem-title"}>
-          Given an array of integers nums and an integer target, return indices
-          of the two numbers such that they add up to target.
-        </p>
-        <p className={"problem-title"}>
-          You may assume that each input would have exactly one solution, and
-          you may not use the same element twice.
-        </p>
-        <p className={"problem-title"}>
-          You can return the answer in any order.
-        </p>
+        <p className={"problem-title"}>{problem.question}</p>
       </div>
       <div className="input-container">
         <h1 className={"input-header"}>Input</h1>
-        <p className={"input-data"}>
-          The first line of the input contains one integer{" "}
-          <b>
-            {`N (1<= N <= 10`}
-            <sup>18</sup>)
-          </b>
-        </p>
+        <p className={"input-data"}>{problem.inputData}</p>
       </div>
       <div className="output-container">
         <h1 className={"output-header"}>Output</h1>
-        <p className={"input-data"}>
-          The first line of the input contains one integer{" "}
-          <b>
-            {`N (1<= N <= 10`}
-            <sup>18</sup>)
-          </b>
-        </p>
+        <p className={"input-data"}>{problem.outputData}</p>
       </div>
       <span className="line"></span>
       <div className="examples-container">
@@ -97,6 +70,8 @@ function Problem() {
         <Table propForTable={propForTable} />
       </div>
     </div>
+  ) : (
+    ""
   );
 }
 

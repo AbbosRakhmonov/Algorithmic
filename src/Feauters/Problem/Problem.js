@@ -11,16 +11,18 @@ import { AnimatePresence, motion } from "framer-motion";
 import Select from "../../Components/Select/Select";
 import Submit_Button from "../../Components/Buttons/Submit_Button";
 import "./for_problem.scss";
-import { getCompilers, getCompiler } from "./problemSlice";
+import { getCompilers, getCompiler, getProblem } from "./problemSlice";
 import { useDispatch, useSelector } from "react-redux";
 
 const Home = lazy(() => import("../Task/Problem"));
 const Attempts = lazy(() => import("./Attempts"));
 
 function Problem({ toogleOffCanvas }) {
-  const dispatch = useDispatch();
-  const { compilers, compiler } = useSelector((state) => state.problem);
   const { id } = useParams();
+  const dispatch = useDispatch();
+  const { compilers, compiler, problem } = useSelector(
+    (state) => state.problem
+  );
   const { pathname } = useLocation();
   const activePath = pathname.split("/")[4] ? pathname.split("/")[4] : "";
   const [value, setValue] = useState("");
@@ -41,6 +43,7 @@ function Problem({ toogleOffCanvas }) {
   useEffect(() => {
     dispatch(getCompilers());
     dispatch(getCompiler("cpp"));
+    dispatch(getProblem(id));
   }, [dispatch]);
   useEffect(() => {
     if (compiler) {
@@ -98,7 +101,11 @@ function Problem({ toogleOffCanvas }) {
               <Suspense fallback={<Loader />}>
                 <AnimatePresence>
                   <Routes>
-                    <Route exact path="/" element={<Home />} />{" "}
+                    <Route
+                      exact
+                      path="/"
+                      element={<Home problem={problem} />}
+                    />
                     <Route exact path="/s" element={<Attempts />} />
                     <Route path="*" element={<Navigate to={""} />} />
                   </Routes>

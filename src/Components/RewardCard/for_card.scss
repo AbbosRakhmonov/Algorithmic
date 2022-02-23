@@ -24,6 +24,7 @@ a {
       object-fit: cover;
       margin-right: 15px;
       border: 2px solid #ffffff;
+      background-color: #ffffff;
 
       img {
         width: 100%;
@@ -37,6 +38,7 @@ a {
         font-family: "Open-Sans-Semibold", sans-serif;
         font-size: 16px;
         color: c.$text-color-bold;
+        padding-right: 28px;
         transition: 0.3s ease-in-out;
       }
 

@@ -16,14 +16,14 @@ function Tbody({ data, fields, page }) {
           <LeaderBoardRow data={data} fields={fields} dataAos={"fade-right"} />
         );
       case "examples":
-        return (
-          <ExamplesRow data={data} fields={fields} dataAos={"fade-down"} />
-        );
+        return <ExamplesRow data={data} fields={fields} dataAos={"fade-up"} />;
       case "attempts":
       case "education":
         return (
           <AttemptsRow data={data} fields={fields} dataAos={"fade-right"} />
         );
+      default:
+        return null;
     }
   };
   return <tbody className={"table-body"}>{renderRow(page)}</tbody>;

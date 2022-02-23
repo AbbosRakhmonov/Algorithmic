@@ -1,5 +1,6 @@
 import React from "react";
 import Skeleton from "react-loading-skeleton";
+import "./for_skeleton.scss";
 
 export const HomeCardSkeleton = () => (
   <>
@@ -50,4 +51,92 @@ export const HomeCalendarSkeleton = () => (
   <>
     <Skeleton width={"100%"} height={311} />
   </>
+);
+
+export const ProblemsSkeleton = () => (
+  <div className={"row h-100 position-relative"}>
+    <div className="row-container">
+      <div className="col-md-12">
+        <Skeleton width={"100%"} height={40} />
+      </div>{" "}
+      <div className="col-md-12">
+        <Skeleton width={"100%"} height={40} />
+      </div>{" "}
+      <div className="col-md-12">
+        <Skeleton width={"100%"} height={40} />
+      </div>{" "}
+      <div className="col-md-12">
+        <Skeleton width={"100%"} height={40} />
+      </div>{" "}
+      <div className="col-md-12">
+        <Skeleton width={"100%"} height={40} />
+      </div>{" "}
+      <div className="col-md-12">
+        <Skeleton width={"100%"} height={40} />
+      </div>{" "}
+      <div className="col-md-12">
+        <Skeleton width={"100%"} height={40} />
+      </div>{" "}
+      <div className="col-md-12">
+        <Skeleton width={"100%"} height={40} />
+      </div>{" "}
+      <div className="col-md-12">
+        <Skeleton width={"100%"} height={40} />
+      </div>{" "}
+      <div className="col-md-12">
+        <Skeleton width={"100%"} height={40} />
+      </div>{" "}
+      <div className="col-md-12">
+        <Skeleton width={"100%"} height={40} />
+      </div>{" "}
+      <div className="col-md-12">
+        <Skeleton width={"100%"} height={40} />
+      </div>{" "}
+      <div className="col-md-12">
+        <Skeleton width={"100%"} height={40} />
+      </div>{" "}
+      <div className="col-md-12">
+        <Skeleton width={"100%"} height={40} />
+      </div>{" "}
+      <div className="col-md-12">
+        <Skeleton width={"100%"} height={40} />
+      </div>{" "}
+      <div className="col-md-12">
+        <Skeleton width={"100%"} height={40} />
+      </div>{" "}
+      <div className="col-md-12">
+        <Skeleton width={"100%"} height={40} />
+      </div>{" "}
+      <div className="col-md-12">
+        <Skeleton width={"100%"} height={40} />
+      </div>{" "}
+      <div className="col-md-12">
+        <Skeleton width={"100%"} height={40} />
+      </div>{" "}
+      <div className="col-md-12">
+        <Skeleton width={"100%"} height={40} />
+      </div>{" "}
+      <div className="col-md-12">
+        <Skeleton width={"100%"} height={40} />
+      </div>{" "}
+      <div className="col-md-12">
+        <Skeleton width={"100%"} height={40} />
+      </div>{" "}
+      <div className="col-md-12">
+        <Skeleton width={"100%"} height={40} />
+      </div>{" "}
+      <div className="col-md-12">
+        <Skeleton width={"100%"} height={40} />
+      </div>{" "}
+      <div className="col-md-12">
+        <Skeleton width={"100%"} height={40} />
+      </div>{" "}
+      <div className="col-md-12">
+        <Skeleton width={"100%"} height={40} />
+      </div>{" "}
+      <div className="col-md-12">
+        <Skeleton width={"100%"} height={40} />
+      </div>
+    </div>
+  </div>
 );

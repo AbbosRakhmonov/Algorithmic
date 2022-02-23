@@ -97,10 +97,12 @@
     }
 
     .table-container {
+      overflow: visible;
       .unic-table {
         position: relative;
         border: 2px solid c.$star-disabled-color;
         .table-header {
+          z-index: auto !important;
           tr{
             th {
               &:not(:last-child) {

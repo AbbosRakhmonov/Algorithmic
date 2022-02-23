@@ -12,6 +12,7 @@ import { IoChevronDown } from "react-icons/io5";
 import { motion } from "framer-motion";
 import { useDispatch, useSelector } from "react-redux";
 import { getProblems } from "./problemsSlice";
+import { ProblemsSkeleton } from "../../Components/Skeletons/Skeletons";
 
 function Problems(props) {
   const dispatch = useDispatch();
@@ -29,7 +30,7 @@ function Problems(props) {
   const [difficultyMedium, setDifficultyMedium] = useState(false);
   const [difficultyHard, setDifficultyHard] = useState(false);
   const [filteredProblems, setFilteredProblems] = useState([]);
-  const { problems } = useSelector((state) => state.problems);
+  const { problems, loading } = useSelector((state) => state.problems);
 
   const onSearch = (e) => {
     const val = e.target.value;
@@ -37,7 +38,7 @@ function Problems(props) {
     const filteredData = problems.filter((problem) => {
       return problem.title.toLowerCase().includes(val.toLowerCase());
     });
-    setFilteredProblems(filteredProblems.length > 0 ? filteredData : problems);
+    setFilteredProblems(filteredData);
   };
   const onTagsSearch = (e) => {
     const val = e.target.value;
@@ -299,7 +300,7 @@ function Problems(props) {
             </div>
           </div>
         </div>
-        <Table propForTable={propForTable} />
+        {loading ? <ProblemsSkeleton /> : <Table propForTable={propForTable} />}
       </div>
     </motion.section>
   );

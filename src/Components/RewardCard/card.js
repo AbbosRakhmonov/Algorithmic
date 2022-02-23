@@ -8,8 +8,8 @@ import GoldMedal from "../../icons/goldMedal.svg";
 import SilverMedal from "../../icons/silverMedal.svg";
 import BronzeMedal from "../../icons/bronzeMedal.svg";
 
-function Card({ user, dataAosDelay }) {
-  const { id, name, image, status, rate, stars } = user;
+function Card({ user, dataAosDelay, index }) {
+  const { id, fullName, userName, rank } = user;
   return (
     <Link to={`/dashboard/leaderboard/user${id}`}>
       <div
@@ -18,28 +18,31 @@ function Card({ user, dataAosDelay }) {
         data-aos-delay={dataAosDelay || 0}
       >
         <div className="user-image">
-          <img src={image} alt={name} />
+          <img
+            src={`http://algorithmic.uz/api/Files/avatar/${id}`}
+            alt={fullName}
+          />
         </div>
         <div className="user-info">
-          <h5 className={"user-name"}>{name}</h5>
-          <p className={"user-status"}>{status}</p>
+          <h5 className={"user-name"}>{fullName}</h5>
+          <p className={"user-status"}>{userName}</p>
           <Rate
             className={"rate-stars"}
-            defaultValue={stars}
+            defaultValue={index === 1 ? 5 : index === 2 ? 3 : 2}
             disabled={true}
             character={[<IoStar key={id} className={"star-icon"} />]}
           />
         </div>
         <span className={"medal"}>
-          {stars > 4 ? (
+          {index === 1 ? (
             <img src={GoldMedal} width={36} height={36} alt="Gold" />
-          ) : stars > 2 ? (
+          ) : index === 2 ? (
             <img src={SilverMedal} width={36} height={36} alt="Silver" />
           ) : (
             <img src={BronzeMedal} width={36} height={36} alt="Bronze" />
           )}
         </span>
-        <span className="user-rate">{rate}</span>
+        <span className="user-rate">{rank}</span>
       </div>
     </Link>
   );
