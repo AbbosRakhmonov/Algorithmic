@@ -28,7 +28,7 @@ const homeSlice = createSlice({
       state.loading = false;
     },
     [getHomeData.rejected]: (state, action) => {
-      state.error = action.payload;
+      state.error = action.payload.message;
       state.loading = false;
     },
   },

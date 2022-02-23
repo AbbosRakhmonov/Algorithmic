@@ -8,6 +8,7 @@ export const getProblems = createAsyncThunk(
     if (res.ok) {
       return res.data;
     } else {
+      console.log(res.data);
       return rejectWithValue({ message: res.data });
     }
   }

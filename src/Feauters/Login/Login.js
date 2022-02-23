@@ -12,48 +12,40 @@ import GoogleIcon from "../../icons/Google.svg";
 import leftCircle from "../../icons/leftLoginCircle.svg";
 import rightCircle from "../../icons/rightLoginCircle.svg";
 import { useDispatch, useSelector } from "react-redux";
-import { getToken } from "./loginSlice";
 import "./for_login.scss";
 import { motion } from "framer-motion";
+import { getToken } from "./loginSlice";
 
 export default function Login() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const { error, isLoggedIn } = useSelector((state) => state.login);
+  const { error, isLoggedIn, loading } = useSelector((state) => state.login);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [focusEmail, setFocusEmail] = useState(false);
   const [focusPassword, setFocusPassword] = useState(false);
-  const [emailValidateText, setEmailValidateText] = useState("");
-  const [passwordValidateText, setPasswordValidateText] = useState("");
   const [emailDirty, setEmailDirty] = useState(false);
   const [passwordDirty, setPasswordDirty] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
   const handleEmail = (e) => {
     let str = e.target.value;
     setEmail(str);
-    const regEmpty = /^\s*$/;
-    if (regEmpty.test(str)) {
+    const regexForEmail =
+      /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    const regexForUsername = /^(?=.{2})[a-z][a-z\d]*_?[a-z\d]+$/i;
+    if (!regexForEmail.test(str) && !regexForUsername.test(str)) {
       setEmailDirty(true);
-      setEmailValidateText("* Please fill this field");
     } else {
       setEmailDirty(false);
-      setEmailValidateText("");
     }
   };
   const handlePassword = (e) => {
     let str = e.target.value;
     setPassword(str);
-    const regEmpty = /^\s*$/;
-    if (regEmpty.test(str)) {
+    if (/^(?=.*\s)/.test(str) || str.length < 6) {
       setPasswordDirty(true);
-      setPasswordValidateText("* Please fill this field");
-    } else if (str.length < 6) {
-      setPasswordDirty(true);
-      setPasswordValidateText("Password must be at least 6 characters");
     } else {
       setPasswordDirty(false);
-      setPasswordValidateText("");
     }
   };
   const handleFocusEmail = () => {
@@ -73,18 +65,19 @@ export default function Login() {
   };
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(email, password, emailDirty, passwordDirty);
-    if (!emailDirty && email && !passwordDirty && password) {
+    if (!password && !email && !emailDirty && !passwordDirty) {
+      setPasswordDirty(true);
+      setEmailDirty(true);
+    } else if (!email || emailDirty) {
+      setEmailDirty(true);
+    } else if (!password || passwordDirty) {
+      setPasswordDirty(true);
+    } else {
       const user = {
         user: email,
         password: password,
       };
       dispatch(getToken(user));
-    } else {
-      setEmailDirty(true);
-      setPasswordDirty(true);
-      setEmailValidateText("* Please fill this field");
-      setPasswordValidateText("* Please fill this field");
     }
   };
 
@@ -92,11 +85,7 @@ export default function Login() {
     if (isLoggedIn) {
       navigate("/dashboard");
     }
-    if (error) {
-      setEmailDirty(true);
-      setPasswordDirty(true);
-    }
-  }, [isLoggedIn, error]);
+  }, [isLoggedIn, dispatch]);
   const pageTransition = {
     inital: {
       opacity: 0,
@@ -153,7 +142,16 @@ export default function Login() {
                         required
                       />
                     </div>
-                    <div className="validate-text">{emailValidateText}</div>
+                    <div className="validate-text">
+                      {emailDirty && (
+                        <ul className={"list-group ps-2 py-2"}>
+                          <li>{"* this field must not be empty"}</li>
+                          <li>
+                            {"* must be between 6 and 25 characters long."}
+                          </li>
+                        </ul>
+                      )}
+                    </div>
                   </div>
                   <div className="position-relative">
                     <div
@@ -185,7 +183,14 @@ export default function Login() {
                         {showPassword ? <IoEyeOffOutline /> : <IoEyeOutline />}
                       </button>
                     </div>
-                    <div className="validate-text">{passwordValidateText}</div>
+                    <div className="validate-text">
+                      {passwordDirty && (
+                        <ul className={"list-group ps-2 py-2"}>
+                          <li>{"* this field must not be empty"}</li>
+                          <li>{"* must be 6 characters"}</li>
+                        </ul>
+                      )}
+                    </div>
                   </div>
 
                   <div className="d-flex justify-content-end">
@@ -201,7 +206,10 @@ export default function Login() {
                   <button
                     form="login-form"
                     type="submit"
-                    className="button signIn-btn"
+                    className={`button btn signIn-btn ${
+                      loading ? "disabled" : ""
+                    }`}
+                    disabled={loading}
                     onClick={handleSubmit}
                   >
                     Sign In

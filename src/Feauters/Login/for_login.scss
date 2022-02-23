@@ -211,8 +211,8 @@
 
   .emailDirty,
   .passwordDirty {
-    margin-bottom: 2px;
-    border-color: c.$notification-color;
+    margin-bottom: 2px !important;
+    border-color: c.$notification-color !important;
 
     & + .validate-text {
       height: auto;
