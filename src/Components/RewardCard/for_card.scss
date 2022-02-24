@@ -25,11 +25,17 @@ a {
       margin-right: 15px;
       border: 2px solid #ffffff;
       background-color: #ffffff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
 
       img {
         width: 100%;
         height: 100%;
         object-fit: cover;
+      }
+      .text-default {
+        color: c.$text-color;
       }
     }
 

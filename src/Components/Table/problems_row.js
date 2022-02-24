@@ -45,7 +45,7 @@ function ProblemsRow({ data, fields, dataAos }) {
                 <td key={index}>
                   <h3
                     className={`table-row-text ${
-                      parseInt(item[field]) < 20
+                      parseInt(item[field]) < 25
                         ? "easy"
                         : parseInt(item[field]) < 50
                         ? "medium"

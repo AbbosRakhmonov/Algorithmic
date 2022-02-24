@@ -4,7 +4,9 @@ import Api from "../api";
 export const getProblems = createAsyncThunk(
   "problems/getProblems",
   async (payload, { rejectWithValue }) => {
-    const res = await Api("/problems").then((res) => res.data);
+    const res = await Api()
+      .get("/problems")
+      .then((res) => res.data);
     if (res.ok) {
       return res.data;
     } else {

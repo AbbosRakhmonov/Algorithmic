@@ -1,21 +1,20 @@
 import axios from "axios";
+const url = "http://api.algorithmic.uz/api";
 
-const http = axios.create({
-  baseURL: "http://api.algorithmic.uz/api",
-  headers: {
-    "Content-Type": "application/json",
+const Api = (contentType = "application/json") => {
+  const headers = {
+    "Content-Type": contentType,
     Accept: "application/json",
     "Cache-Control": "no-cache",
-  },
-});
-http.interceptors.request.use(
-  function (config) {
-    const token = localStorage.getItem("accessToken");
-    if (token) config.headers.Authorization = `Bearer ${token}`;
-    return config;
-  },
-  function (error) {
-    return Promise.reject(error);
+  };
+  const token = localStorage.getItem("accessToken");
+  if (token) {
+    headers["Authorization"] = `Bearer ${token}`;
   }
-);
-export default http;
+  return axios.create({
+    baseURL: url,
+    headers: headers,
+  });
+};
+
+export default Api;

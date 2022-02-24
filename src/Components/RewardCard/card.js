@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import Axios from "axios";
 import Rate from "rc-rate";
 import { IoStar } from "react-icons/io5";
 import "rc-rate/assets/index.css";
@@ -10,6 +11,20 @@ import BronzeMedal from "../../icons/bronzeMedal.svg";
 
 function Card({ user, dataAosDelay, index }) {
   const { id, fullName, userName, rank } = user;
+  const [imageSrc, setImageSrc] = useState("");
+  const getImage = async () => {
+    return await Axios.get(`http://algorithmic.uz/api/files/avatar/${id}`, {
+      responseType: "arraybuffer",
+    }).then((response) => {
+      let blob = new Blob([response.data], {
+        type: response.headers["content-type"],
+      });
+      return URL.createObjectURL(blob);
+    });
+  };
+  useEffect(() => {
+    getImage().then((res) => setImageSrc(res));
+  }, []);
   return (
     <Link to={`/dashboard/leaderboard/user${id}`}>
       <div
@@ -18,10 +33,16 @@ function Card({ user, dataAosDelay, index }) {
         data-aos-delay={dataAosDelay || 0}
       >
         <div className="user-image">
-          <img
-            src={`http://algorithmic.uz/api/Files/avatar/${id}`}
-            alt={fullName}
-          />
+          {imageSrc ? (
+            <img
+              src={`http://algorithmic.uz/api/Files/avatar/${id}`}
+              alt={fullName}
+            />
+          ) : (
+            <div className="spinner-border text-default" role="status">
+              <span className="visually-hidden">Loading...</span>
+            </div>
+          )}
         </div>
         <div className="user-info">
           <h5 className={"user-name"}>{fullName}</h5>

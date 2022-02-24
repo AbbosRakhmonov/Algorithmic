@@ -14,7 +14,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { getProblems } from "./problemsSlice";
 import { ProblemsSkeleton } from "../../Components/Skeletons/Skeletons";
 
-function Problems(props) {
+function Problems() {
   const dispatch = useDispatch();
   const [searchVal, setSearchVal] = useState("");
   const [tagsSearchVal, setTagsSearchVal] = useState("");
@@ -44,7 +44,7 @@ function Problems(props) {
     const val = e.target.value;
     setTagsSearchVal(val);
   };
-  const handleClickStatusBadge = (e) => {
+  const handleClickStatusBadge = () => {
     setStatusBadgeVisible(!statusBadgeVisible);
     setDifficultyBadgeVisible(false);
     setTagsBadgeVisible(false);
@@ -59,7 +59,9 @@ function Problems(props) {
     setStatusBadgeVisible(false);
     setDifficultyBadgeVisible(false);
   };
+  /* status */
   const handleClickStatusDefault = () => {
+    setFilteredProblems(problems);
     setStatusDefault(true);
     setStatusTodo(false);
     setStatusSolved(false);
@@ -67,27 +69,47 @@ function Problems(props) {
     setSearchVal("");
   };
   const handleClickTodo = () => {
+    const filteredData = problems.filter((problem) => {
+      return (
+        problem.stat === null &&
+        problem.title.toLowerCase().includes(searchVal.toLowerCase())
+      );
+    });
+    setFilteredProblems(filteredData);
     setStatusDefault(false);
     setStatusTodo(true);
     setStatusSolved(false);
     setStatusAttempted(false);
-    setSearchVal("");
   };
   const handleClickSolved = () => {
+    const filteredData = problems.filter((problem) => {
+      return (
+        problem.stat === "ok" &&
+        problem.title.toLowerCase().includes(searchVal.toLowerCase())
+      );
+    });
+    setFilteredProblems(filteredData);
     setStatusDefault(false);
     setStatusTodo(false);
     setStatusSolved(true);
     setStatusAttempted(false);
-    setSearchVal("");
   };
   const handleClickAttempted = () => {
+    const filteredData = problems.filter((problem) => {
+      return (
+        problem.stat === "wa" &&
+        problem.title.toLowerCase().includes(searchVal.toLowerCase())
+      );
+    });
+    setFilteredProblems(filteredData);
     setStatusDefault(false);
     setStatusTodo(false);
     setStatusSolved(false);
     setStatusAttempted(true);
-    setSearchVal("");
   };
+  /* difficulty */
   const handleClickDifficultyDefault = () => {
+    setFilteredProblems(problems);
     setDifficultyDefault(true);
     setDifficultyEasy(false);
     setDifficultyMedium(false);
@@ -95,6 +117,14 @@ function Problems(props) {
     setSearchVal("");
   };
   const handleClickEasy = () => {
+    const filteredData = problems.filter((problem) => {
+      return (
+        problem.difficulty >= 0 &&
+        problem.difficulty < 25 &&
+        problem.title.toLowerCase().includes(searchVal.toLowerCase())
+      );
+    });
+    setFilteredProblems(filteredData);
     setDifficultyDefault(false);
     setDifficultyEasy(true);
     setDifficultyMedium(false);
@@ -102,6 +132,14 @@ function Problems(props) {
     setSearchVal("");
   };
   const handleClickMedium = () => {
+    const filteredData = problems.filter((problem) => {
+      return (
+        problem.difficulty >= 25 &&
+        problem.difficulty < 50 &&
+        problem.title.toLowerCase().includes(searchVal.toLowerCase())
+      );
+    });
+    setFilteredProblems(filteredData);
     setDifficultyDefault(false);
     setDifficultyEasy(false);
     setDifficultyMedium(true);
@@ -109,6 +147,13 @@ function Problems(props) {
     setSearchVal("");
   };
   const handleClickHard = () => {
+    const filteredData = problems.filter((problem) => {
+      return (
+        problem.difficulty >= 50 &&
+        problem.title.toLowerCase().includes(searchVal.toLowerCase())
+      );
+    });
+    setFilteredProblems(filteredData);
     setDifficultyDefault(false);
     setDifficultyEasy(false);
     setDifficultyMedium(false);

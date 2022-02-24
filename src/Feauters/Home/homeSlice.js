@@ -4,7 +4,9 @@ import Api from "../api";
 export const getHomeData = createAsyncThunk(
   "home/getHomeData",
   async (data, { rejectWithValue }) => {
-    const res = await Api.get("/home/stats").then((res) => res.data);
+    const res = await Api()
+      .get("/home/stats")
+      .then((res) => res.data);
     if (res.ok) {
       return res.data;
     } else {

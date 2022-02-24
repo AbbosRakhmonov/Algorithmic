@@ -4,7 +4,9 @@ import Api from "../api";
 export const getCompilers = createAsyncThunk(
   "compilers/getCompilers",
   async (arg, { rejectWithValue }) => {
-    const res = await Api("/compilers").then((res) => res.data);
+    const res = await Api()
+      .get("/compilers")
+      .then((res) => res.data);
     if (res.ok) {
       return res.data;
     } else {
@@ -16,7 +18,9 @@ export const getCompilers = createAsyncThunk(
 export const getCompiler = createAsyncThunk(
   "compilers/getCompiler",
   async (language, { rejectWithValue }) => {
-    const res = await Api(`/compilers/${language}`).then((res) => res.data);
+    const res = await Api()
+      .get(`/compilers/${language}`)
+      .then((res) => res.data);
     if (res.ok) {
       return res.data;
     } else {
@@ -28,7 +32,9 @@ export const getCompiler = createAsyncThunk(
 export const getProblem = createAsyncThunk(
   "problems/getProblem",
   async (id, { rejectWithValue }) => {
-    const res = await Api(`/problems/${id}`).then((res) => res.data);
+    const res = await Api()
+      .get(`/problems/${id}`)
+      .then((res) => res.data);
     if (res.ok) {
       return res.data;
     } else {

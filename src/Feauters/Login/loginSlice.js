@@ -4,7 +4,9 @@ import Api from "../api";
 export const getToken = createAsyncThunk(
   "login/getUser",
   async (data, { rejectWithValue }) => {
-    const res = await Api.post("/auth/login", data).then((res) => res.data);
+    const res = await Api()
+      .post("/auth/login", data)
+      .then((res) => res.data);
     if (res.ok) {
       return res.data;
     } else {
@@ -17,7 +19,9 @@ export const getToken = createAsyncThunk(
 export const addNewUser = createAsyncThunk(
   "login/addNewUser",
   async (user, { rejectWithValue }) => {
-    const res = await Api.post("/auth/signup", user).then((res) => res.data);
+    const res = await Api()
+      .post("/auth/signup", user)
+      .then((res) => res.data);
     if (res.ok) {
       return res.data;
     } else {
