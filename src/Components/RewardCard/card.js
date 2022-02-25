@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import Axios from "axios";
 import Rate from "rc-rate";
 import { IoStar } from "react-icons/io5";
 import "rc-rate/assets/index.css";
@@ -8,19 +7,22 @@ import { Link } from "react-router-dom";
 import GoldMedal from "../../icons/goldMedal.svg";
 import SilverMedal from "../../icons/silverMedal.svg";
 import BronzeMedal from "../../icons/bronzeMedal.svg";
+import Api from "../../Feauters/api";
 
 function Card({ user, dataAosDelay, index }) {
   const { id, fullName, userName, rank } = user;
   const [imageSrc, setImageSrc] = useState("");
   const getImage = async () => {
-    return await Axios.get(`http://algorithmic.uz/api/files/avatar/${id}`, {
-      responseType: "arraybuffer",
-    }).then((response) => {
-      let blob = new Blob([response.data], {
-        type: response.headers["content-type"],
+    return await Api()
+      .get("/files/avatar/" + id, {
+        responseType: "arraybuffer",
+      })
+      .then((res) => {
+        let blob = new Blob([res.data], {
+          type: res.headers["content-type"],
+        });
+        return URL.createObjectURL(blob);
       });
-      return URL.createObjectURL(blob);
-    });
   };
   useEffect(() => {
     getImage().then((res) => setImageSrc(res));

@@ -8,11 +8,11 @@ import Table from "../../Components/Table/Table";
 import Lists from "../../Components/Lists/Lists";
 import "./for_education_tasks.scss";
 import { useDispatch, useSelector } from "react-redux";
-import { getCompiler, getCompilers } from "../Problem/problemSlice";
+import { getCompiler } from "../../Components/Select/selectSlice";
 
 function EducationTasks() {
   const dispatch = useDispatch();
-  const { compilers, compiler } = useSelector((state) => state.problem);
+  const { compiler } = useSelector((state) => state.compilers);
   const { attempts } = useSelector((state) => state.education);
 
   const [value, setValue] = useState("");
@@ -46,7 +46,6 @@ function EducationTasks() {
     },
   };
   useEffect(() => {
-    dispatch(getCompilers());
     dispatch(getCompiler("cpp"));
   }, [dispatch]);
   useEffect(() => {
@@ -71,11 +70,7 @@ function EducationTasks() {
         <main className="main-content h-100">
           <Problem />
           <div className="code-field">
-            <Select
-              value={compiler && compiler.lang}
-              chooseLanguage={chooseLanguage}
-              languages={compilers}
-            />
+            <Select chooseLanguage={chooseLanguage} />
             <div
               className={"code-container"}
               data-aos={"fade-down"}

@@ -62,7 +62,8 @@ function Problems() {
   };
   /* status */
   const handleClickStatusDefault = () => {
-    setFilteredProblems(problems);
+    const filteredData = filterByDifficulty();
+    setFilteredProblems(filteredData);
     setStatusDefault(true);
     setStatusTodo(false);
     setStatusSolved(false);
@@ -110,7 +111,8 @@ function Problems() {
   };
   /* difficulty */
   const handleClickDifficultyDefault = () => {
-    setFilteredProblems(problems);
+    const filteredData = filterByStatus();
+    setFilteredProblems(filteredData);
     setDifficultyDefault(true);
     setDifficultyEasy(false);
     setDifficultyMedium(false);

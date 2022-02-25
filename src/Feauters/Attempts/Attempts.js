@@ -1,9 +1,14 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import Table from "../../Components/Table/Table";
 import Pagination from "../../Components/Pagination/Pagination";
 import { motion } from "framer-motion";
+import { useDispatch, useSelector } from "react-redux";
 
 function Attempts() {
+  const dispatch = useDispatch();
+  const { attempts } = useSelector((state) => state.attempts);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [data, setData] = useState([]);
   const propForTable = {
     page: "attempts",
     data: [

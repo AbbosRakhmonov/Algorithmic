@@ -5,10 +5,16 @@ import Pagination from "../../Components/Pagination/Pagination";
 import "./for_leaderboard.scss";
 import { motion } from "framer-motion";
 
-function LeaderBoard(props) {
+function LeaderBoard() {
   const [searchVal, setSearchVal] = useState("");
-  const onSearchChange = (event) => {
-    setSearchVal(event.target.value);
+  const [filteredUsers, setFilteredUsers] = useState([]);
+  const [user, setUser] = useState([]);
+  const onSearchChange = (e) => {
+    const str = e.target.value;
+    setSearchVal(str);
+    const filteredData = filteredUsers.filter((user) => {
+      return user.name.toLowerCase().includes(str.toLowerCase());
+    });
   };
   const propForTable = {
     page: "leaderboard",

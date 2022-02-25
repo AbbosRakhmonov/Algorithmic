@@ -4,6 +4,9 @@ import homeReducer from "../Feauters/Home/homeSlice";
 import problemReducer from "../Feauters/Problem/problemSlice";
 import educationReducer from "../Feauters/Education/educationSlice";
 import problemsReducer from "../Feauters/Problems/problemsSlice";
+import leaderboardReducer from "../Feauters/LeaderBoard/leaderboardSlice";
+import compilersReducer from "../Components/Select/selectSlice";
+import attemptsReducer from "../Feauters/Attempts/attemptsSlice";
 
 export default configureStore({
   reducer: {
@@ -12,5 +15,8 @@ export default configureStore({
     problem: problemReducer,
     problems: problemsReducer,
     education: educationReducer,
+    leaderboard: leaderboardReducer,
+    compilers: compilersReducer,
+    attempts: attemptsReducer,
   },
 });

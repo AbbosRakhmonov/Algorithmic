@@ -11,7 +11,8 @@ import { AnimatePresence, motion } from "framer-motion";
 import Select from "../../Components/Select/Select";
 import Submit_Button from "../../Components/Buttons/Submit_Button";
 import "./for_problem.scss";
-import { getCompilers, getCompiler, getProblem } from "./problemSlice";
+import { getProblem } from "./problemSlice";
+import { getCompiler } from "../../Components/Select/selectSlice";
 import { useDispatch, useSelector } from "react-redux";
 
 const Home = lazy(() => import("../Task/Problem"));
@@ -20,7 +21,7 @@ const Attempts = lazy(() => import("./Attempts"));
 function Problem({ toogleOffCanvas }) {
   const { id } = useParams();
   const dispatch = useDispatch();
-  const { compilers, compiler } = useSelector((state) => state.problem);
+  const { compiler } = useSelector((state) => state.compilers);
   const { pathname } = useLocation();
   const activePath = pathname.split("/")[4] ? pathname.split("/")[4] : "";
   const [value, setValue] = useState("");
@@ -39,8 +40,9 @@ function Problem({ toogleOffCanvas }) {
     },
   };
   useEffect(() => {
-    dispatch(getCompilers());
     dispatch(getCompiler("cpp"));
+  }, [dispatch]);
+  useEffect(() => {
     dispatch(getProblem(id));
   }, [dispatch]);
   useEffect(() => {
@@ -107,11 +109,7 @@ function Problem({ toogleOffCanvas }) {
               </Suspense>
             </div>
             <div className="code-editor h-100">
-              <Select
-                value={compiler && compiler.lang}
-                chooseLanguage={chooseLanguage}
-                languages={compilers}
-              />
+              <Select chooseLanguage={chooseLanguage} />
               <Codemirror
                 value={value}
                 setValue={setValue}

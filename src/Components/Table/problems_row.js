@@ -1,5 +1,10 @@
 import React from "react";
-import { IoRemove, IoCheckmark, IoCloseSharp } from "react-icons/io5";
+import {
+  IoRemove,
+  IoCheckmark,
+  IoCloseSharp,
+  IoHelpOutline,
+} from "react-icons/io5";
 import Badge from "../Badge/badge";
 import { Link } from "react-router-dom";
 import NotFound from "../Not Found/NotFound";
@@ -20,11 +25,22 @@ function ProblemsRow({ data, fields, dataAos }) {
                 <td key={index}>
                   <span>
                     {item[field] === null ? (
-                      <IoRemove className="status-icon" />
+                      <IoRemove className="status-icon" title={"Todo"} />
                     ) : item[field] === "ok" ? (
-                      <IoCheckmark className="status-icon accepted" />
+                      <IoCheckmark
+                        className="status-icon accepted"
+                        title={"accepted"}
+                      />
+                    ) : item[field] === "InQueue" ? (
+                      <IoHelpOutline
+                        className={"status-icon text-warning"}
+                        title={"In Progress"}
+                      />
                     ) : (
-                      <IoCloseSharp className="status-icon error" />
+                      <IoCloseSharp
+                        className="status-icon error"
+                        title={"Have Problem"}
+                      />
                     )}
                   </span>
                 </td>
