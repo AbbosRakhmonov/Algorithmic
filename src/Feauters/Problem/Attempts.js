@@ -1,5 +1,6 @@
 import React from "react";
 import Table from "../../Components/Table/Table";
+import { useSelector } from "react-redux";
 
 function Attempts() {
   const propForTable = {

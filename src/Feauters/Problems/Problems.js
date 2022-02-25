@@ -31,6 +31,7 @@ function Problems() {
   const [difficultyHard, setDifficultyHard] = useState(false);
   const [filteredProblems, setFilteredProblems] = useState([]);
   const { problems, loading } = useSelector((state) => state.problems);
+  const { isLoggedIn } = useSelector((state) => state.login);
 
   const onSearch = (e) => {
     const val = e.target.value;
@@ -69,7 +70,7 @@ function Problems() {
     setSearchVal("");
   };
   const handleClickTodo = () => {
-    const filteredData = problems.filter((problem) => {
+    const filteredData = filterByDifficulty().filter((problem) => {
       return (
         problem.stat === null &&
         problem.title.toLowerCase().includes(searchVal.toLowerCase())
@@ -82,7 +83,7 @@ function Problems() {
     setStatusAttempted(false);
   };
   const handleClickSolved = () => {
-    const filteredData = problems.filter((problem) => {
+    const filteredData = filterByDifficulty().filter((problem) => {
       return (
         problem.stat === "ok" &&
         problem.title.toLowerCase().includes(searchVal.toLowerCase())
@@ -95,7 +96,7 @@ function Problems() {
     setStatusAttempted(false);
   };
   const handleClickAttempted = () => {
-    const filteredData = problems.filter((problem) => {
+    const filteredData = filterByDifficulty().filter((problem) => {
       return (
         problem.stat === "wa" &&
         problem.title.toLowerCase().includes(searchVal.toLowerCase())
@@ -117,7 +118,7 @@ function Problems() {
     setSearchVal("");
   };
   const handleClickEasy = () => {
-    const filteredData = problems.filter((problem) => {
+    const filteredData = filterByStatus().filter((problem) => {
       return (
         problem.difficulty >= 0 &&
         problem.difficulty < 25 &&
@@ -129,10 +130,9 @@ function Problems() {
     setDifficultyEasy(true);
     setDifficultyMedium(false);
     setDifficultyHard(false);
-    setSearchVal("");
   };
   const handleClickMedium = () => {
-    const filteredData = problems.filter((problem) => {
+    const filteredData = filterByStatus().filter((problem) => {
       return (
         problem.difficulty >= 25 &&
         problem.difficulty < 50 &&
@@ -144,10 +144,9 @@ function Problems() {
     setDifficultyEasy(false);
     setDifficultyMedium(true);
     setDifficultyHard(false);
-    setSearchVal("");
   };
   const handleClickHard = () => {
-    const filteredData = problems.filter((problem) => {
+    const filteredData = filterByStatus().filter((problem) => {
       return (
         problem.difficulty >= 50 &&
         problem.title.toLowerCase().includes(searchVal.toLowerCase())
@@ -158,8 +157,35 @@ function Problems() {
     setDifficultyEasy(false);
     setDifficultyMedium(false);
     setDifficultyHard(true);
-    setSearchVal("");
   };
+  /* status and difficulty */
+  const filterByDifficulty = () => {
+    if (difficultyDefault) {
+      return problems;
+    } else if (difficultyEasy) {
+      return problems.filter(
+        (problem) => problem.difficulty >= 0 && problem.difficulty < 25
+      );
+    } else if (difficultyMedium) {
+      return problems.filter(
+        (problem) => problem.difficulty >= 25 && problem.difficulty < 50
+      );
+    } else if (difficultyHard) {
+      return problems.filter((problem) => problem.difficulty >= 50);
+    }
+  };
+  const filterByStatus = () => {
+    if (statusDefault) {
+      return problems;
+    } else if (statusTodo) {
+      return problems.filter((problem) => problem.stat === null);
+    } else if (statusSolved) {
+      return problems.filter((problem) => problem.stat === "ok");
+    } else if (statusAttempted) {
+      return problems.filter((problem) => problem.stat === "wa");
+    }
+  };
+  /* useffect */
   useEffect(() => {
     dispatch(getProblems());
   }, [dispatch]);
@@ -214,6 +240,7 @@ function Problems() {
                     className={`filter-btn ${
                       statusBadgeVisible ? "clicked-filter-btn" : ""
                     }`}
+                    disabled={!isLoggedIn}
                   >
                     Status
                     <span className={"filter-btn-icon"}>

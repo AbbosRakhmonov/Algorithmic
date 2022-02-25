@@ -20,9 +20,7 @@ const Attempts = lazy(() => import("./Attempts"));
 function Problem({ toogleOffCanvas }) {
   const { id } = useParams();
   const dispatch = useDispatch();
-  const { compilers, compiler, problem } = useSelector(
-    (state) => state.problem
-  );
+  const { compilers, compiler } = useSelector((state) => state.problem);
   const { pathname } = useLocation();
   const activePath = pathname.split("/")[4] ? pathname.split("/")[4] : "";
   const [value, setValue] = useState("");
@@ -101,11 +99,7 @@ function Problem({ toogleOffCanvas }) {
               <Suspense fallback={<Loader />}>
                 <AnimatePresence>
                   <Routes>
-                    <Route
-                      exact
-                      path="/"
-                      element={<Home problem={problem} />}
-                    />
+                    <Route exact path="/" element={<Home />} />
                     <Route exact path="/s" element={<Attempts />} />
                     <Route path="*" element={<Navigate to={""} />} />
                   </Routes>

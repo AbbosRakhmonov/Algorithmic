@@ -2,9 +2,12 @@ import React, { useEffect, useState } from "react";
 import { IoFlash, IoHardwareChip, IoTime, IoPerson } from "react-icons/io5";
 import "./for_problem.scss";
 import Table from "../../Components/Table/Table";
+import SmLoader from "../../Components/SmallLoader/SmallLoader";
+import { useSelector } from "react-redux";
 
-function Problem({ problem }) {
+function Problem() {
   const [examples, setExamples] = useState([]);
+  const { loading, problem } = useSelector((state) => state.problem);
   const propForTable = {
     page: "examples",
     data: examples,
@@ -23,7 +26,7 @@ function Problem({ problem }) {
     else return "unknown";
   };
 
-  return problem ? (
+  return !loading && problem ? (
     <div className={"problem-container"}>
       <h1 className={"problem-title"}>{`${problem.id}. ${problem.title}`}</h1>
       <span className="line"></span>
@@ -71,7 +74,7 @@ function Problem({ problem }) {
       </div>
     </div>
   ) : (
-    ""
+    <SmLoader />
   );
 }
 
