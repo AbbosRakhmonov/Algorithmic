@@ -3,7 +3,7 @@ import ReactPaginate from "react-paginate";
 import { IoChevronBack, IoChevronForward } from "react-icons/io5";
 import "./for_pagination.scss";
 
-function Pagination(props) {
+function Pagination({ totalPages = 1, onPageChange }) {
   return (
     <ReactPaginate
       containerClassName={
@@ -22,9 +22,10 @@ function Pagination(props) {
       previousLabel={<IoChevronBack size={18} />}
       nextLabel={<IoChevronForward size={18} />}
       breakLabel={"..."}
-      pageCount={15}
+      pageCount={totalPages}
       marginPagesDisplayed={5}
       pageRangeDisplayed={5}
+      onPageChange={onPageChange}
     />
   );
 }

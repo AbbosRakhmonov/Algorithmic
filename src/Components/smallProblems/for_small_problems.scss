@@ -1,0 +1,52 @@
+@use "../../Styles/colors" as c;
+@import "../../Styles/fonts";
+
+.problems-container {
+  margin-top: 30px;
+  background-color: #ffffff;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px -1px rgba(0, 0, 0, 0.07);
+
+  .title {
+    font-family: "Open-Sans-Semibold", sans-serif;
+    font-size: 18px;
+    color: c.$text-color-bold;
+    text-align: center;
+    margin-bottom: 15px;
+  }
+
+  .buttons {
+    display: flex;
+    flex-wrap: wrap;
+
+    li {
+      width: 10%;
+      border-radius: 4px;
+      padding: 0 5px;
+      margin-bottom: 10px;
+    }
+
+    .problems-btn {
+      width: 100%;
+      font-size: 18px;
+      color: #ffffff;
+      line-height: 24px;
+      background-color: c.$text-color;
+      transition: 0.3s linear;
+      padding: 5px 15px;
+
+      &:focus {
+        box-shadow: none;
+      }
+
+      &:hover {
+        background-color: c.$icon-bg-color;
+      }
+    }
+  }
+
+  .bg-solved {
+    background-color: c.$text-color-green;
+  }
+}

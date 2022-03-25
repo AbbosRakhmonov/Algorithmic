@@ -1,5 +1,5 @@
 import axios from "axios";
-const url = "http://api.algorithmic.uz/api";
+export const url = "http://algorithmic.uz/api";
 
 const Api = (contentType = "application/json") => {
   const headers = {

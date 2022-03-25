@@ -1,28 +1,55 @@
-import React from "react";
-import { CKEditor } from "@ckeditor/ckeditor5-react";
-import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
+import React, { useState } from "react";
+import SunEditor, { buttonList } from "suneditor-react";
+import "suneditor/dist/css/suneditor.min.css";
+import katex from "katex";
+import "katex/dist/katex.min.css";
 
 function Ckeditor() {
+  console.log(buttonList);
+  const [data, setData] = useState("");
+  const handleChange = (data) => {
+    setData(data);
+  };
+  console.log(data);
   return (
     <div className={"react-editor"}>
-      <CKEditor
-        editor={ClassicEditor}
-        data="<p>Hello from CKEditor 5!</p>"
-        onReady={(editor) => {
-          // You can store the "editor" and use when it is needed.
-          console.log("Editor is ready to use!", editor);
-        }}
-        onChange={(event, editor) => {
-          const data = editor.getData();
-          console.log({ event, editor, data });
-        }}
-        onBlur={(event, editor) => {
-          console.log("Blur.", editor);
-        }}
-        onFocus={(event, editor) => {
-          console.log("Focus.", editor);
-        }}
-      />
+      {
+        <SunEditor
+          onChange={handleChange}
+          placeholder="Please type here..."
+          setDefaultStyle="font-family: Open-Sans-Semibold, sans-serif; font-size: 14px;"
+          setOptions={{
+            height: "300px",
+            width: "100%",
+            katex: katex,
+            buttonList: [
+              [
+                "formatBlock",
+                "fontColor",
+                "hiliteColor",
+                "bold",
+                "italic",
+                "underline",
+                "list",
+                "superscript",
+                "subscript",
+                "math",
+                "table",
+                "underline",
+                "strike",
+              ],
+              ["align", "horizontalRule", "list", "lineHeight"],
+              ["link", "image", "video"],
+              ["undo", "redo"],
+              ["codeView", "fullScreen"],
+            ],
+            imageAccept: ".jpg, .jpeg, .png, .gif",
+            imageUrlInput: false,
+            showPathLabel: false,
+            mediaAutoSelect: false,
+          }}
+        />
+      }
     </div>
   );
 }

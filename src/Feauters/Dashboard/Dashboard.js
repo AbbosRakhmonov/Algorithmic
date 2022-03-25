@@ -2,13 +2,13 @@ import React, { lazy, Suspense, useEffect, useState } from "react";
 import { Link, Navigate, Route, Routes, useLocation } from "react-router-dom";
 import Navbar from "../../Components/Navbar/Navbar";
 import { IoNotifications, IoPersonCircle, IoSettings } from "react-icons/io5";
-import "./for_dashboard.scss";
 import { Offcanvas } from "reactstrap";
 import Loader from "../../Components/Loader/Loader";
 import { useDispatch, useSelector } from "react-redux";
-import { setIsLoggedIn } from "../Login/loginSlice";
+import { setIsLoggedIn, getUserImage } from "../Login/loginSlice";
 import { AnimatePresence, motion } from "framer-motion";
 import jwt_decode from "jwt-decode";
+import "./for_dashboard.scss";
 
 const Home = lazy(() => import("../Home/Home"));
 const Problems = lazy(() => import("../Problems/Problems"));
@@ -19,6 +19,9 @@ const Attempts = lazy(() => import("../Attempts/Attempts"));
 const Education = lazy(() => import("../Education/Education"));
 const EducationTasks = lazy(() => import("../Education/Education_Tasks"));
 const About = lazy(() => import("../About/About"));
+const Profile = lazy(() => import("../Profile/Profile"));
+const Ckeditor = lazy(() => import("../../Components/CKEditor/Ckeditor"));
+const News = lazy(() => import("../../Components/News/News"));
 
 export default function Dashboard() {
   const dispatch = useDispatch();
@@ -46,19 +49,23 @@ export default function Dashboard() {
               user: decoded,
             })
           );
+          dispatch(getUserImage(decoded.nameid));
         }
       } else {
         localStorage.removeItem("accessToken");
       }
     }
-    setOffCanvasVisible(false);
+  }, [dispatch]);
+  useEffect(() => {
     const problemPage = pathname.split("/")[3] === "p";
     if (problemPage) {
       setActiveProblem(true);
     } else {
       setActiveProblem(false);
     }
-  }, [dispatch, pathname]);
+    setOffCanvasVisible(false);
+  }, [pathname]);
+
   const pageTransition = {
     in: {
       opacity: 1,
@@ -83,20 +90,21 @@ export default function Dashboard() {
             toggle={toogleOffCanvas}
             style={{ width: "320px" }}
           >
-            <Navbar user={isLoggedIn && user} />
+            <Navbar user={isLoggedIn && user && user} />
           </Offcanvas>
-          <Navbar user={isLoggedIn && user} />
+          <Navbar user={isLoggedIn && user && user} />
         </div>
         <div className={`${activeProblem ? "col-12" : "col-9 ps-0"} h-100vh`}>
           <div className="d-flex flex-column flex-nowrap h-100">
             <div className="conf-nav d-flex align-items-center justify-content-between">
               <h3 className={"breadcrumb text-capitalize"}>{activePath}</h3>
               <div className="conf-profile d-flex align-items-end">
-                {isLoggedIn ? (
-                  <Link to="/profile" className={"breadcrumb-btn"}>
+                {activePath === "profile" && (
+                  <Link to={`${pathname}/edit`} className={"breadcrumb-btn"}>
                     <IoSettings className="breadcrumb-icon profile-icon" />
                   </Link>
-                ) : (
+                )}
+                {!isLoggedIn && (
                   <Link to="/signin" className={"breadcrumb-btn"}>
                     <IoPersonCircle className="breadcrumb-icon profile-icon" />
                     <span className={"link-name"}>Sign In</span>
@@ -114,6 +122,11 @@ export default function Dashboard() {
               <AnimatePresence exitBeforeEnter={true}>
                 <Routes>
                   <Route exact path="/" element={<Home />} />
+                  <Route
+                    exact
+                    path="/profile/:username/*"
+                    element={<Profile />}
+                  />
                   <Route exact path="/problems" element={<Problems />} />
                   <Route
                     exact
@@ -121,18 +134,16 @@ export default function Dashboard() {
                     element={<Problem toogleOffCanvas={toogleOffCanvas} />}
                   />
                   <Route exact path="/contests" element={<Contests />} />
-                  <Route
-                    exact
-                    path="/leaderboard"
-                    element={<Leaderboard />}
-                  />{" "}
+                  <Route exact path="/leaderboard" element={<Leaderboard />} />
                   <Route exact path="/attempts" element={<Attempts />} />
                   <Route exact path="/education" element={<Education />} />
+                  <Route exact path={"/news/*"} element={<News />} />
                   <Route
                     exact
                     path="/education/:title/*"
                     element={<EducationTasks />}
                   />
+                  <Route exact path={"/usage"} element={<Ckeditor />} />
                   <Route exact path="/about" element={<About />} />
                   <Route path="*" element={<Navigate to={"/404"} />} />
                 </Routes>

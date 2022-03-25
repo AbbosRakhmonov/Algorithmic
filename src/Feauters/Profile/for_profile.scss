@@ -1,0 +1,72 @@
+@use "../../Styles/colors" as c;
+@import "../../Styles/fonts";
+
+#profile {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: nowrap;
+  height: 100%;
+  overflow: hidden;
+  .list-group {
+    padding: 0;
+    width: 100%;
+    flex-direction: row;
+    justify-content: flex-end;
+    margin-bottom: 20px;
+
+    .list-group-item {
+      width: auto;
+      margin-bottom: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      &:not(:last-child) {
+        margin-right: 15px;
+      }
+
+      .profile-links {
+        text-decoration: none;
+        padding: 5px 10px;
+        border-radius: 8px;
+
+        .nav-icon {
+          font-size: 1rem;
+          color: c.$text-color;
+          margin-right: 8px;
+        }
+
+        .nav-title {
+          font-family: "Open-Sans-Semibold", sans-serif;
+          font-size: 14px;
+          color: c.$text-color;
+        }
+      }
+      .profile-links.active {
+        background-color: #ffffff;
+        box-shadow: 0 2px 4px -1px rgba(0, 0, 0, 0.07);
+        .nav-icon{
+          background-color: transparent;
+        }
+      }
+    }
+  }
+  .contents{
+    overflow-x: hidden;
+    overflow-y: auto;
+    &::-webkit-scrollbar {
+      width: 3px;
+      height: 2px;
+    }
+
+    &::-webkit-scrollbar-thumb {
+      background: rgba(103, 116, 142, 0.1);
+      border-radius: 10px;
+    }
+
+    &::-webkit-scrollbar-track {
+      background: transparent;
+    }
+  }
+}
+

@@ -10,7 +10,7 @@ export const getHomeData = createAsyncThunk(
     if (res.ok) {
       return res.data;
     } else {
-      return rejectWithValue({ message: res.data });
+      return rejectWithValue(res.data);
     }
   }
 );
@@ -30,7 +30,7 @@ const homeSlice = createSlice({
       state.loading = false;
     },
     [getHomeData.rejected]: (state, action) => {
-      state.error = action.payload.message;
+      state.error = action.payload;
       state.loading = false;
     },
   },

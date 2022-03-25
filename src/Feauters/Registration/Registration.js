@@ -63,7 +63,8 @@ export default function Registration() {
 
   /* For Username */
   const handleUsername = (e) => {
-    const regularExpressionForLogin = /^[a-z0-9_-]{4,20}$/;
+    const regularExpressionForLogin =
+      /^(?=.{4,20}$)(?![_.])(?!.*[_.]{2})[a-zA-Z0-9_]+(?<![_.])$/;
     let str = e.target.value;
     setUsername(str);
     if (!regularExpressionForLogin.test(str)) {

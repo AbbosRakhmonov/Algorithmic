@@ -1,0 +1,24 @@
+@use "../../Styles/colors" as c;
+
+.social-networks {
+  width: max-content;
+  margin: 6px auto;
+
+  .social-item {
+    display: inline-block;
+
+    .social-link {
+      font-size: 18px;
+      color: c.$text-color;
+      transition: 0.3s ease-in-out;
+
+      &:hover {
+        color: c.$icon-bg-color;
+      }
+    }
+
+    &:not(:last-child) {
+      margin-right: 15px;
+    }
+  }
+}

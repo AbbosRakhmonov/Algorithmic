@@ -13,11 +13,27 @@
     width: 100%;
     display: flex;
     align-items: center;
-    word-break: break-word;
-    padding: 0 1rem 1rem 1rem;
+    padding-bottom: 5px;
     margin-bottom: 1rem;
     border-bottom: 2px solid c.$filter-bg-color;
-    text-decoration: none;
+    transition: .3s ease;
+    border-radius: 8px;
+
+    .profile-container {
+      width: 100%;
+      height: 100%;
+      display:flex;
+      align-items: center;
+      text-decoration: none;
+      padding: 1rem;
+      border-radius: 8px;
+      word-break: break-word;
+      overflow: hidden;
+    }
+    .profile-container.active {
+      background-color: #ffffff;
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.05);
+    }
 
     .profile-image {
       width: 50px;

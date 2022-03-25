@@ -1,0 +1,147 @@
+@use "../../Styles/colors" as c;
+
+.modal.show::before {
+  content: "";
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(5px);
+}
+
+.modal-backdrop {
+  background: transparent;
+  overflow: hidden;
+}
+
+.s-modal {
+  max-width: 485px;
+  height: 100%;
+  display: flex;
+  padding: 40px 20px;
+  margin: 0 auto;
+  overflow: hidden;
+
+  .modal-content-container {
+    overflow-x: hidden;
+
+    &::-webkit-scrollbar {
+      width: 2px;
+      height: 2px;
+    }
+
+    &::-webkit-scrollbar-thumb {
+      background: rgba(103, 116, 142, 0.2);
+      border-radius: 10px;
+    }
+
+    &::-webkit-scrollbar-track {
+      background: transparent;
+    }
+  }
+
+  .modal-content {
+    border-radius: 8px;
+    border: none;
+
+    .s-modal-header {
+      //border-bottom: 10px solid #CDCFCF;
+      border: none;
+      padding: 20px;
+
+      .modal-title {
+        font-family: "Open-Sans-Semibold", sans-serif;
+        font-size: 18px;
+        color: c.$text-color-bold;
+        display: flex;
+        align-items: center;
+      }
+
+      .close-btn, .back-btn {
+        font-size: 24px;
+        color: c.$text-color;
+        padding: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        &:hover {
+          color: c.$icon-bg-color;
+        }
+
+        &:focus {
+          box-shadow: none;
+        }
+      }
+
+      .back-btn {
+        font-size: 20px;
+        margin-right: 15px;
+      }
+    }
+
+    .s-modal-header-bordered {
+      border-bottom: 10px solid #CDCFCF;
+    }
+
+    .s-modal-body {
+      padding: 20px 0;
+      overflow-y: auto;
+
+      //&::-webkit-scrollbar {
+      //  width: 2px;
+      //  height: 2px;
+      //}
+      //
+      //&::-webkit-scrollbar-thumb {
+      //  background: rgba(103, 116, 142, 0.2);
+      //  border-radius: 10px;
+      //}
+      //
+      //&::-webkit-scrollbar-track {
+      //  background: transparent;
+      //}
+    }
+  }
+}
+
+.nested-modal {
+  max-width: 450px;
+  height: auto;
+
+  .modal-content {
+    .s-modal-body {
+      padding: 20px;
+    }
+
+    .form-btn {
+      padding: 8px 15px;
+      border-radius: 8px;
+      font-family: "Open-Sans-Semibold", sans-serif;
+      font-size: 14px;
+      color: #ffffff;
+      transition: .2s ease;
+      &:not(&:last-child) {
+        margin-right: 10px;
+      }
+    }
+
+    .cancel-btn {
+      background: #E2574C;
+
+      &:hover {
+        background: c.$notification-color;
+      }
+    }
+
+    .submit-btn {
+      background: #82D616;
+
+      &:hover {
+        background: #4CAF50;
+      }
+    }
+  }
+}

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { IoPeople, IoCodeSlash, IoTrophy } from "react-icons/io5";
 import NewsItem from "../../Components/NewsCard/card";
 import RewardCard from "../../Components/RewardCard/card";
@@ -115,7 +115,6 @@ function Home() {
                 {data ? (
                   <>
                     <NewsItem />
-                    <NewsItem dataAosDelay={"200"} />
                   </>
                 ) : (
                   <HomeNewsCardSkeleton />

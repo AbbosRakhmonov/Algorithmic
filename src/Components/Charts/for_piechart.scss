@@ -1,0 +1,28 @@
+@use "../../Styles/colors" as c;
+@import "../../Styles/fonts";
+
+.percentage {
+  font-family: "Open-Sans-Semibold", sans-serif;
+  font-size: 18px;
+  color: c.$text-color-bold;
+}
+
+.chart-title {
+  font-family: "Open-Sans-Semibold", sans-serif;
+  font-size: 12px;
+  text-align: center;
+  line-height: 24px;
+}
+
+.chart-text {
+  text-align: center;
+  font-size: 14px;
+  .active-text {
+    font-family: "Open-Sans-Semibold", sans-serif;
+    color: #000000;
+  }
+  .total-text {
+    font-family: "Open-Sans", sans-serif;
+    color: c.$text-color;
+  }
+}

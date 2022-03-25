@@ -26,7 +26,7 @@ function Card({ user, dataAosDelay, index }) {
   };
   useEffect(() => {
     getImage().then((res) => setImageSrc(res));
-  }, []);
+  }, [user]);
   return (
     <Link to={`/dashboard/leaderboard/user${id}`}>
       <div
@@ -36,10 +36,7 @@ function Card({ user, dataAosDelay, index }) {
       >
         <div className="user-image">
           {imageSrc ? (
-            <img
-              src={`http://algorithmic.uz/api/Files/avatar/${id}`}
-              alt={fullName}
-            />
+            <img src={`${imageSrc}`} alt={fullName} />
           ) : (
             <div className="spinner-border text-default" role="status">
               <span className="visually-hidden">Loading...</span>

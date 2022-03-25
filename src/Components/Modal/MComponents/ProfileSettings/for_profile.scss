@@ -1,0 +1,63 @@
+@use "../../../../Styles/colors" as c;
+@import "../../../../Styles/fonts";
+
+.profile-container {
+  padding: 10px 20px 20px 20px;
+
+  #userImage {
+    display: none;
+  }
+
+  .image-container {
+    width: 90px;
+    height: 90px;
+    overflow: hidden;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+
+    .overlay {
+      transition: 0.3s ease;
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.5);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      opacity: 0;
+      .icon {
+        font-size: 30px;
+        color: #ffffff;
+      }
+      p {
+        font-family: "Open-Sans-Semibold", sans-serif;
+        font-size: 12px;
+        color: #ffffff;
+      }
+    }
+
+    &:hover {
+      .overlay {
+        opacity: 1;
+      }
+    }
+  }
+  .fullname {
+    font-family: "Open-Sans-Semibold",sans-serif;
+    font-size: 24px;
+    color: c.$text-color-bold;
+  }
+  .username{
+    font-family: "Open-Sans",sans-serif;
+    font-size: 18px;
+    color: c.$text-color;
+    margin-top: 2px;
+  }
+}

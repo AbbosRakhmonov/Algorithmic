@@ -1,0 +1,17 @@
+@use "../../Styles/colors" as c;
+@import "../../Styles/fonts";
+
+.problems-statistics{
+  background-color: #ffffff;
+  padding: 20px;
+  box-shadow: 0 2px 4px -1px rgba(0, 0, 0, 0.07);
+  border-radius: 8px;
+  margin-top: 75px;
+  .statics-title{
+    font-family: "Open-Sans-Semibold", sans-serif;
+    font-size: 18px;
+    color: c.$text-color-bold;
+    text-align: center;
+    margin-bottom: 26px;
+  }
+}

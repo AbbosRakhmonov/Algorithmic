@@ -1,0 +1,87 @@
+@use "../../Styles/colors" as c;
+@use "../../Styles/mixins" as m;
+@import "../../Styles/fonts";
+
+.text-default {
+  color: c.$text-color;
+}
+
+.private-profile-container {
+  position: relative;
+  border-radius: 8px;
+  background-color: #ffffff;
+  box-shadow: 0 2px 4px -1px rgba(0, 0, 0, 0.07);
+  margin-top: 75px;
+  padding-top: 75px;
+  text-align: center;
+
+  .user-image {
+    width: 150px;
+    height: 150px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    background-color: #ffffff;
+    position: absolute;
+    left: 50%;
+    top: -75px;
+    transform: translateX(-50%);
+    margin-bottom: 10px;
+    object-fit: cover;
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+  }
+  .user-fullName {
+    font-family: "Open-Sans-Bold", sans-serif;
+    font-size:24px;
+    color: c.$text-color-bold;
+    margin-top: 10px;
+    padding: 0 10px;
+  }
+  .user-username {
+    font-family: "Open-Sans-Semibold", sans-serif;
+    font-size: 14px;
+    color: c.$text-color;
+    margin-bottom: 14px;
+  }
+  .location {
+    .location-icon {
+      color: c.$text-color;
+      font-size: 18px;
+      margin-right: 5px;
+    }
+    .location-text {
+      font-family: "Open-Sans", sans-serif;
+      font-size: 14px;
+      color: c.$text-color-bold;
+    }
+  }
+  .rating-container {
+    padding: 10px 20px;
+    background-color: c.$text-color;
+    border-radius: 0 0 8px 8px;
+    margin-top: 14px;
+    .row {
+      .rate-icon {
+        font-size: 18px;
+        color: #ffffff;
+        margin-right: 5px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      .rating {
+        font-family: "Open-Sans-Semibold", sans-serif;
+        font-size: 18px;
+        color: #ffffff;
+        .rating-number {
+          font-family: "Open-Sans", sans-serif;
+        }
+      }
+    }
+  }
+}

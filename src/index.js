@@ -8,12 +8,13 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import { SkeletonTheme } from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
 import "./style.scss";
+import Cat from "./Lotties/Cat";
 
 ReactDOM.render(
   <Router>
     <Provider store={Store}>
       <SkeletonTheme baseColor={"#E6E9FA"} highlightColor={"#C2C9D1"}>
-        <App />
+        <>{navigator.onLine ? <App /> : <Cat />}</>
       </SkeletonTheme>
     </Provider>
   </Router>,

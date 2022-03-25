@@ -1,109 +1,42 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import SearchBox from "../../Components/SearchBox/searchBox";
 import Table from "../../Components/Table/Table";
 import Pagination from "../../Components/Pagination/Pagination";
 import "./for_leaderboard.scss";
 import { motion } from "framer-motion";
+import { getLeaders } from "./leaderboardSlice";
+import { useDispatch, useSelector } from "react-redux";
 
 function LeaderBoard() {
+  const dispatch = useDispatch();
+  const { leaders, numberOfUsers, currentUser, isLoading } = useSelector(
+    (state) => state.leaderboard
+  );
   const [searchVal, setSearchVal] = useState("");
-  const [filteredUsers, setFilteredUsers] = useState([]);
-  const [user, setUser] = useState([]);
+  const [currentPage, setCurrentPage] = useState(1);
   const onSearchChange = (e) => {
     const str = e.target.value;
     setSearchVal(str);
-    const filteredData = filteredUsers.filter((user) => {
-      return user.name.toLowerCase().includes(str.toLowerCase());
-    });
+  };
+  const onPageChange = ({ selected }) => {
+    setCurrentPage(selected + 1);
   };
   const propForTable = {
     page: "leaderboard",
-    data: [
-      {
-        id: 1,
-        img: "https://via.placeholder.com/35",
-        fullName: "Nguyễn Văn A",
-        userName: "nguyenvana",
-        score: "100",
-      },
-      {
-        id: 2,
-        img: "https://via.placeholder.com/35",
-        fullName: "Nguyễn Văn B",
-        userName: "nguyenvana",
-        score: "90",
-      },
-      {
-        id: 3,
-        img: "https://via.placeholder.com/35",
-        fullName: "Nguyễn Văn C",
-        userName: "nguyenvana",
-        score: "80",
-      },
-      {
-        id: 4,
-        img: "https://via.placeholder.com/35",
-        fullName: "Nguyễn Văn D",
-        userName: "nguyenvana",
-        score: "70",
-      },
-      {
-        id: 5,
-        img: "https://via.placeholder.com/35",
-        fullName: "Nguyễn Văn E",
-        userName: "nguyenvana",
-        score: "60",
-      },
-      {
-        id: 6,
-        img: "https://via.placeholder.com/35",
-        fullName: "Nguyễn Văn F",
-        userName: "nguyenvana",
-        score: "50",
-      },
-      {
-        id: 7,
-        img: "https://via.placeholder.com/35",
-        fullName: "Nguyễn Văn G",
-        userName: "nguyenvana",
-        score: "40",
-      },
-      {
-        id: 8,
-        img: "https://via.placeholder.com/35",
-        fullName: "Nguyễn Văn H",
-        userName: "nguyenvana",
-        score: "30",
-      },
-      {
-        id: 9,
-        img: "https://via.placeholder.com/35",
-        fullName: "Nguyễn Văn I",
-        userName: "nguyenvana",
-        score: "20",
-      },
-      {
-        id: 10,
-        img: "https://via.placeholder.com/35",
-        fullName: "Nguyễn Văn J",
-        userName: "nguyenvana",
-        score: "10",
-      },
-    ],
+    data: leaders,
     user: {
       id: 120,
-      img: "https://via.placeholder.com/35",
       fullName: "Abbos Rakhmonov",
       userName: "abbos",
-      score: "1200",
+      rank: "1200",
     },
     headers: {
       titles: ["Nth", "", "Full Name", "Score"],
-      fields: ["id", "img", "fullName", "score"],
+      fields: ["id", "img", "fullName", "rank"],
     },
   };
   const pageTransition = {
-    inital: {
+    initial: {
       opacity: 0,
       x: -100,
     },
@@ -116,9 +49,12 @@ function LeaderBoard() {
       x: 100,
     },
   };
+  useEffect(() => {
+    dispatch(getLeaders(currentPage));
+  }, [dispatch, currentPage]);
   return (
     <motion.section
-      initial={"inital"}
+      initial={"initial"}
       animate={"in"}
       exit={"out"}
       transition={{ duration: 0.5, type: "tween", ease: "anticipate" }}
@@ -129,8 +65,12 @@ function LeaderBoard() {
         <div className="search-bar">
           <SearchBox value={searchVal} onChange={onSearchChange} />
         </div>
-        <Table propForTable={propForTable} />
-        <Pagination />
+        <Table propForTable={propForTable} isLoading={isLoading} />
+        <Pagination
+          currentPage={currentPage}
+          totalPages={Math.ceil(numberOfUsers / 10)}
+          onPageChange={onPageChange}
+        />
       </div>
     </motion.section>
   );

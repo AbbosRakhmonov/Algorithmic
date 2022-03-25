@@ -31,7 +31,7 @@ function ExamplesRow({ data, fields, dataAos }) {
                       : "d-none"
                   }`}
                 >
-                  <Copy text={example[field]} />
+                  <Copy text={example[field]} id={`table-${index + 1}`} />
                 </div>
               </div>
             </td>

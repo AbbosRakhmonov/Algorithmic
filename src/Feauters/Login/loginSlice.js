@@ -10,10 +10,23 @@ export const getToken = createAsyncThunk(
     if (res.ok) {
       return res.data;
     } else {
-      return rejectWithValue({
-        message: "Email or password incorrect",
-      });
+      return rejectWithValue("Email or password incorrect");
     }
+  }
+);
+export const getUserImage = createAsyncThunk(
+  "login/getUserImage",
+  async (id, { rejectWithValue }) => {
+    return await Api()
+      .get("/files/avatar/" + id, {
+        responseType: "arraybuffer",
+      })
+      .then((res) => {
+        let blob = new Blob([res.data], {
+          type: res.headers["content-type"],
+        });
+        return URL.createObjectURL(blob);
+      });
   }
 );
 export const addNewUser = createAsyncThunk(
@@ -25,9 +38,7 @@ export const addNewUser = createAsyncThunk(
     if (res.ok) {
       return res.data;
     } else {
-      return rejectWithValue({
-        message: res.data,
-      });
+      return rejectWithValue(res.data);
     }
   }
 );
@@ -57,7 +68,7 @@ const loginSlice = createSlice({
       localStorage.setItem("accessToken", action.payload);
     },
     [getToken.rejected]: (state, { payload }) => {
-      state.error = payload.message;
+      state.error = payload;
       state.isLoading = false;
     },
     [addNewUser.pending]: (state, action) => {
@@ -69,7 +80,15 @@ const loginSlice = createSlice({
       localStorage.setItem("accessToken", action.payload);
     },
     [addNewUser.rejected]: (state, { payload }) => {
-      state.error = payload.message;
+      state.error = payload;
+      state.isLoading = false;
+    },
+    [getUserImage.fulfilled]: (state, action) => {
+      state.isLoading = false;
+      state.user.image = action.payload;
+    },
+    [getUserImage.rejected]: (state, { payload }) => {
+      state.error = payload;
       state.isLoading = false;
     },
   },

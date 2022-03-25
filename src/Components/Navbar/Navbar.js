@@ -1,34 +1,54 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Path from "./Path";
 import NavbarLink from "./Navlink/navbarLink";
-import { Link, useLocation } from "react-router-dom";
+import { NavLink, useLocation } from "react-router-dom";
 import ProfileLogo from "../../icons/profileLogo.svg";
 import "./for_navbar.scss";
+import Api from "../../Feauters/api";
 
 export default function Navbar({ user }) {
   const { pathname } = useLocation();
   const activePath = pathname.split("/")[2] ? pathname.split("/")[2] : "";
+  const [imageSrc, setImageSrc] = useState(ProfileLogo);
+  const getImage = async (id) => {
+    return await Api()
+      .get("/files/avatar/" + id, {
+        responseType: "arraybuffer",
+      })
+      .then((res) => {
+        let blob = new Blob([res.data], {
+          type: res.headers["content-type"],
+        });
+        return URL.createObjectURL(blob);
+      });
+  };
+  useEffect(() => {
+    user && getImage(user.nameid).then((res) => setImageSrc(res));
+  }, [user]);
   return (
     <nav className="navbar">
-      <Link className="profile-badge" to={"/"}>
-        <img
-          className={"profile-image"}
-          width="50"
-          height="50"
-          src={
-            user
-              ? `http://api.algorithmic.uz/api/files/avatar/${user.nameid}`
-              : ProfileLogo
-          }
-          alt="profile image"
-        />
-        <div className="profile-info d-flex flex-column">
-          <h3 className={"profile-title"}>
-            {user ? user.given_name : "Algorithmic.uz"}
-          </h3>
-          {user && <p className={"profile-text"}>{user.unique_name}</p>}
-        </div>
-      </Link>
+      <div className="profile-badge">
+        <NavLink
+          className={"profile-container"}
+          to={user ? `profile/${user.unique_name}` : "/"}
+        >
+          {imageSrc && (
+            <img
+              className={"profile-image"}
+              width="50"
+              height="50"
+              src={imageSrc}
+              alt={`${user ? user.given_name : "algorithmic.uz"}`}
+            />
+          )}
+          <div className="profile-info d-flex flex-column">
+            <h3 className={"profile-title"}>
+              {user ? user.given_name : "Algorithmic.uz"}
+            </h3>
+            {user && <p className={"profile-text"}>{user.unique_name}</p>}
+          </div>
+        </NavLink>
+      </div>
       <ul className={"list-group"}>
         {Path.map((link, idx) => (
           <NavbarLink

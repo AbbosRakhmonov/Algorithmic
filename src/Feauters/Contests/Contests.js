@@ -4,7 +4,7 @@ import { motion } from "framer-motion";
 
 function Contests(props) {
   const pageTransition = {
-    intial: {
+    initial: {
       opacity: 0,
       x: -100,
     },
@@ -19,7 +19,7 @@ function Contests(props) {
   };
   return (
     <motion.div
-      initial={"inital"}
+      initial={"initial"}
       animate={"in"}
       exit={"out"}
       transition={{ duration: 0.5, type: "tween", ease: "anticipate" }}

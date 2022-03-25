@@ -1,14 +1,22 @@
-import React from "react";
+import React, { useState } from "react";
 import { IoCopy } from "react-icons/io5";
 import "./for_copy_button.scss";
 import ReactTooltip from "react-tooltip";
 
-function CopyButton({ text }) {
+function CopyButton({ text, id }) {
+  const [data, setData] = useState("copy");
   const handleClick = () => {
-    navigator.clipboard.writeText(text).then(() => {
-      console.log("Copied to clipboard");
-    });
-    ReactTooltip.show();
+    navigator.clipboard
+      .writeText(text)
+      .then(() => {
+        setData("copied");
+        setTimeout(() => {
+          setData("copy");
+        }, 1000);
+      })
+      .catch((err) => {
+        console.log("Something went wrong", err);
+      });
   };
 
   return (
@@ -17,11 +25,14 @@ function CopyButton({ text }) {
         id={"ScheduleUpdateTooltip"}
         className={"btn copy-btn"}
         onClick={handleClick}
-        data-tip={"tooltip"}
+        data-tip
+        data-for={id}
       >
         <IoCopy />
       </button>
-      <ReactTooltip />
+      <ReactTooltip id={id} place="top" effect="solid">
+        {data}
+      </ReactTooltip>
     </div>
   );
 }

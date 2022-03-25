@@ -3,6 +3,7 @@ import Table from "../../Components/Table/Table";
 import Pagination from "../../Components/Pagination/Pagination";
 import { motion } from "framer-motion";
 import { useDispatch, useSelector } from "react-redux";
+import { getAttempts } from "./attemptsSlice";
 
 function Attempts() {
   const dispatch = useDispatch();
@@ -70,6 +71,9 @@ function Attempts() {
       x: 100,
     },
   };
+  useEffect(() => {
+    dispatch(getAttempts());
+  }, [dispatch]);
   return (
     <motion.section
       initial={"inital"}

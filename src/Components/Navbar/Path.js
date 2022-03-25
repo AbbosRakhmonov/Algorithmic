@@ -10,6 +10,8 @@ import {
   IoChatbubbles,
   IoSchool,
   IoCodeWorking,
+  IoPerson,
+  IoLibrary,
 } from "react-icons/io5";
 
 const Links = [
@@ -98,6 +100,29 @@ export const ProblemNav = [
     childTitles: ["d"],
     path: "d",
     icon: <IoChatbubbles />,
+  },
+];
+export const profileLinks = [
+  {
+    id: 1,
+    title: "Overview",
+    childTitles: [],
+    path: "",
+    icon: <IoPerson />,
+  },
+  {
+    id: 2,
+    title: "Submissions",
+    childTitles: [],
+    path: "submissions",
+    icon: <IoSend />,
+  },
+  {
+    id: 3,
+    title: "Problems Solved",
+    childTitles: [],
+    path: "problems",
+    icon: <IoLibrary />,
   },
 ];
 

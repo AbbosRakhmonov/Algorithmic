@@ -11,7 +11,7 @@ export const getProblems = createAsyncThunk(
       return res.data;
     } else {
       console.log(res.data);
-      return rejectWithValue({ message: res.data });
+      return rejectWithValue(res.data);
     }
   }
 );
@@ -32,7 +32,7 @@ const problemsSlice = createSlice({
       state.loading = false;
     },
     [getProblems.rejected]: (state, action) => {
-      state.error = action.payload.message;
+      state.error = action.payload;
       state.loading = false;
     },
   },

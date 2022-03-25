@@ -1,6 +1,6 @@
 import React from "react";
-import { Link } from "react-router-dom";
 import NotFound from "../Not Found/NotFound";
+import LeaderRow from "./leaderRow";
 
 function LeaderBoardRow({ data, fields, userRow, dataAos }) {
   return (
@@ -15,24 +15,7 @@ function LeaderBoardRow({ data, fields, userRow, dataAos }) {
             data-aos-duration={200}
           >
             {fields.map((field, index) => (
-              <td key={index}>
-                {field === "fullName" ? (
-                  <>
-                    <h3 className={"table-row-text"}>
-                      <Link to={"/"} title={user[field]}>
-                        {user[field]}
-                      </Link>
-                    </h3>
-                    <p className={"user-name"}>{user.userName}</p>
-                  </>
-                ) : field === "img" ? (
-                  <div className={"user-name-image"}>
-                    <img src={`${user[field]}`} alt="user" />
-                  </div>
-                ) : (
-                  user[field]
-                )}
-              </td>
+              <LeaderRow user={user} field={field} key={index} nth={idx + 1} />
             ))}
           </tr>
         ))

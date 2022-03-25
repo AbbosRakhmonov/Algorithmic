@@ -1,7 +1,7 @@
-import React, { lazy, Suspense, useEffect } from "react";
+import React, { lazy, Suspense, useEffect, useState } from "react";
 import AOS from "aos";
 import "aos/dist/aos.css";
-import { Route, Routes, Navigate } from "react-router-dom";
+import { Navigate, Route, Routes } from "react-router-dom";
 import Loader from "./Components/Loader/Loader";
 import { AnimatePresence } from "framer-motion";
 
