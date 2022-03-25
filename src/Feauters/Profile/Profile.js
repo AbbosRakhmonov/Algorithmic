@@ -19,7 +19,7 @@ function Profile({ obj }) {
   const navigate = useNavigate();
   const { user } = useSelector((state) => state.login);
   const pageTransition = {
-    inital: {
+    initial: {
       opacity: 0,
       x: -100,
     },
@@ -39,7 +39,7 @@ function Profile({ obj }) {
   }, [user, navigate]);
   return (
     <motion.section
-      initial={"inital"}
+      initial={"initial"}
       animate={"in"}
       exit={"out"}
       transition={{ duration: 0.5, type: "tween", ease: "anticipate" }}

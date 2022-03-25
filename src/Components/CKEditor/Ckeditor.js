@@ -1,18 +1,14 @@
-import React, { useState } from "react";
-import SunEditor, { buttonList } from "suneditor-react";
-import "suneditor/dist/css/suneditor.min.css";
+import React from "react";
+import SunEditor from "suneditor-react";
 import katex from "katex";
+import "suneditor/dist/css/suneditor.min.css";
 import "katex/dist/katex.min.css";
 
-function Ckeditor() {
-  console.log(buttonList);
-  const [data, setData] = useState("");
-  const handleChange = (data) => {
-    setData(data);
-  };
-  console.log(data);
+function Ckeditor({ value, handleChange, label }) {
+  console.log(value);
   return (
-    <div className={"react-editor"}>
+    <div className={"react-editor mb-4"}>
+      <h4 className={"text-dark mb-3"}>{label}</h4>
       {
         <SunEditor
           onChange={handleChange}

@@ -9,6 +9,7 @@ import { setIsLoggedIn, getUserImage } from "../Login/loginSlice";
 import { AnimatePresence, motion } from "framer-motion";
 import jwt_decode from "jwt-decode";
 import "./for_dashboard.scss";
+import AddTasks from "../AddTasks/AddTasks";
 
 const Home = lazy(() => import("../Home/Home"));
 const Problems = lazy(() => import("../Problems/Problems"));
@@ -20,7 +21,6 @@ const Education = lazy(() => import("../Education/Education"));
 const EducationTasks = lazy(() => import("../Education/Education_Tasks"));
 const About = lazy(() => import("../About/About"));
 const Profile = lazy(() => import("../Profile/Profile"));
-const Ckeditor = lazy(() => import("../../Components/CKEditor/Ckeditor"));
 const News = lazy(() => import("../../Components/News/News"));
 
 export default function Dashboard() {
@@ -143,7 +143,7 @@ export default function Dashboard() {
                     path="/education/:title/*"
                     element={<EducationTasks />}
                   />
-                  <Route exact path={"/usage"} element={<Ckeditor />} />
+                  <Route exact path={"/usage"} element={<AddTasks />} />
                   <Route exact path="/about" element={<About />} />
                   <Route path="*" element={<Navigate to={"/404"} />} />
                 </Routes>
