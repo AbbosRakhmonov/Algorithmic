@@ -1,4 +1,4 @@
-import React, { lazy, Suspense, useEffect, useState } from "react";
+import React, { lazy, Suspense, useEffect } from "react";
 import AOS from "aos";
 import "aos/dist/aos.css";
 import { Navigate, Route, Routes } from "react-router-dom";
