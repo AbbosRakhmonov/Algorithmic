@@ -7,33 +7,12 @@ import { getAttempts } from "./attemptsSlice";
 
 function Attempts() {
   const dispatch = useDispatch();
-  const { attempts } = useSelector((state) => state.attempts);
+  const { attempts, loading } = useSelector((state) => state.attempts);
   const [currentPage, setCurrentPage] = useState(1);
   const [data, setData] = useState([]);
   const propForTable = {
     page: "attempts",
-    data: [
-      {
-        id: 1,
-        fullName: "Abbos Rakhmonov",
-        problem: "A+B",
-        status: "Accepted",
-        runTime: "12 ms",
-        memory: "1 KB",
-        language: "C++",
-        date: "09.05.2020 15:00",
-      },
-      {
-        id: 2,
-        fullName: "Abbos Rakhmonov",
-        problem: "A+B",
-        status: "Wrong Answer",
-        runTime: "12 ms",
-        memory: "1 KB",
-        language: "C++",
-        date: "09.05.2020 15:01",
-      },
-    ],
+    data: data,
     headers: {
       titles: [
         "#",
@@ -47,12 +26,12 @@ function Attempts() {
       ],
       fields: [
         "id",
-        "fullName",
+        "solver",
         "problem",
         "status",
-        "runTime",
+        "time",
         "memory",
-        "language",
+        "lang",
         "date",
       ],
     },
@@ -74,6 +53,9 @@ function Attempts() {
   useEffect(() => {
     dispatch(getAttempts());
   }, [dispatch]);
+  useEffect(() => {
+    setData(attempts);
+  }, [attempts]);
   return (
     <motion.section
       initial={"inital"}
@@ -85,7 +67,7 @@ function Attempts() {
       className={"h-100"}
     >
       <div className="d-flex flex-nowrap flex-column h-100">
-        <Table propForTable={propForTable} />
+        <Table propForTable={propForTable} isLoading={loading} />
         <Pagination />
       </div>
     </motion.section>

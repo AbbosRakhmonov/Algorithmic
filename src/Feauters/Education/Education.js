@@ -1,35 +1,17 @@
-import React from "react";
-import "./for_education.scss";
+import React, { useEffect } from "react";
 import EducationCard from "../../Components/EducationCard/EducationCard";
 import { motion } from "framer-motion";
+import { useDispatch, useSelector } from "react-redux";
+import { getEducationThemes } from "./educationSlice";
+import "./for_education.scss";
+import LinearProgress from "@material-ui/core/LinearProgress";
 
-function Education(props) {
-  const data = [
-    {
-      id: 1,
-      title: "Input Output",
-      all: "100",
-      done: "0",
-    },
-    {
-      id: 2,
-      title: "For Loop",
-      all: "100",
-      done: "0",
-    },
-    {
-      id: 3,
-      title: "While Loop",
-      all: "100",
-      done: "0",
-    },
-    {
-      id: 4,
-      title: "Do While Loop",
-      all: "100",
-      done: "0",
-    },
-  ];
+function Education() {
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(getEducationThemes());
+  }, [dispatch]);
+  const { themes, loading } = useSelector((state) => state.education);
   const pageTransition = {
     inital: {
       opacity: 0,
@@ -55,16 +37,20 @@ function Education(props) {
       className={"h-100"}
     >
       <div className="d-flex flex-wrap">
-        {data.map((item, index) => (
-          <EducationCard
-            key={index}
-            id={item.id}
-            done={item.done}
-            title={item.title}
-            all={item.all}
-            dataAosDelay={index * 100}
-          />
-        ))}
+        {loading ? (
+          <LinearProgress className={"w-100"} />
+        ) : (
+          themes.map((item, index) => (
+            <EducationCard
+              key={index}
+              id={index + 1}
+              done={"0"}
+              title={item}
+              all={"0"}
+              dataAosDelay={index * 100}
+            />
+          ))
+        )}
       </div>
     </motion.section>
   );

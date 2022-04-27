@@ -106,7 +106,7 @@ export const profileLinks = [
   {
     id: 1,
     title: "Overview",
-    childTitles: [],
+    childTitles: [""],
     path: "",
     icon: <IoPerson />,
   },

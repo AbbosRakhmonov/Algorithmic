@@ -8,7 +8,11 @@ function LeaderRow({ field, user }) {
       {field === "fullName" ? (
         <>
           <h3 className={"table-row-text"}>
-            <Link to={"/"} title={user[field]}>
+            <Link
+              to={`/dashboard/profile/${user.id}`}
+              state={{ userId: user.id }}
+              title={user[field]}
+            >
               {user[field]}
             </Link>
           </h3>

@@ -28,7 +28,7 @@ function Card({ user, dataAosDelay, index }) {
     getImage().then((res) => setImageSrc(res));
   }, [user]);
   return (
-    <Link to={`/dashboard/leaderboard/user${id}`}>
+    <Link to={`/dashboard/profile/${id}`}>
       <div
         className={"reward-card"}
         data-aos="fade-left"

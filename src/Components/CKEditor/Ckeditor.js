@@ -5,7 +5,6 @@ import "suneditor/dist/css/suneditor.min.css";
 import "katex/dist/katex.min.css";
 
 function Ckeditor({ value, handleChange, label }) {
-  console.log(value);
   return (
     <div className={"react-editor mb-4"}>
       <h4 className={"text-dark mb-3"}>{label}</h4>

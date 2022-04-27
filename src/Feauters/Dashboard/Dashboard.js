@@ -122,11 +122,7 @@ export default function Dashboard() {
               <AnimatePresence exitBeforeEnter={true}>
                 <Routes>
                   <Route exact path="/" element={<Home />} />
-                  <Route
-                    exact
-                    path="/profile/:username/*"
-                    element={<Profile />}
-                  />
+                  <Route exact path="/profile/:id/*" element={<Profile />} />
                   <Route exact path="/problems" element={<Problems />} />
                   <Route
                     exact
@@ -140,7 +136,7 @@ export default function Dashboard() {
                   <Route exact path={"/news/*"} element={<News />} />
                   <Route
                     exact
-                    path="/education/:title/*"
+                    path="/education/:title/:problem_index"
                     element={<EducationTasks />}
                   />
                   <Route exact path={"/usage"} element={<AddTasks />} />

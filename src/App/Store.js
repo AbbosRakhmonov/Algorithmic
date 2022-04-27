@@ -7,6 +7,7 @@ import problemsReducer from "../Feauters/Problems/problemsSlice";
 import leaderboardReducer from "../Feauters/LeaderBoard/leaderboardSlice";
 import compilersReducer from "../Components/Select/selectSlice";
 import attemptsReducer from "../Feauters/Attempts/attemptsSlice";
+import profileReducer from "../Feauters/Profile/profileSlice";
 
 export default configureStore({
   reducer: {
@@ -18,5 +19,6 @@ export default configureStore({
     leaderboard: leaderboardReducer,
     compilers: compilersReducer,
     attempts: attemptsReducer,
+    profile: profileReducer,
   },
 });

@@ -1,10 +1,8 @@
 import React from "react";
 import { motion } from "framer-motion";
-// import Profile from "../../Components/PrivateProfile/privateProfile";
+import Profile from "../../Components/PrivateProfile/privateProfile";
 import PieChart from "../../Components/Charts/pieChart";
-import Abbos from "../../icons/Team/Abbos.png";
-import { Outlet } from "react-router-dom";
-
+import { Outlet, useLocation } from "react-router-dom";
 import "./for_overview.scss";
 import {
   FaFacebookF,
@@ -13,42 +11,13 @@ import {
   FaInstagram,
 } from "react-icons/fa";
 import SmallProblems from "../../Components/smallProblems/smallProblems";
-import Heatmap from "../../Components/Heatmap/heatmap";
+// import Heatmap from "../../Components/Heatmap/heatmap";
+import { useDispatch, useSelector } from "react-redux";
 
-function Overview(props) {
-  const user = {
-    id: 2,
-    name: "Abbos Rakhmonov",
-    username: "dragon_warrior",
-    job: "Frontend Developer",
-    img: Abbos,
-    networks: [
-      {
-        id: 2,
-        name: "Facebook",
-        link: "https://www.facebook.com/abbos.rakhmonov",
-        icon: <FaFacebookF />,
-      },
-      {
-        id: 3,
-        name: "Instagram",
-        link: "https://www.instagram.com/abbos_rakhmonov/",
-        icon: <FaInstagram />,
-      },
-      {
-        id: 1,
-        name: "Telegram",
-        link: "https://t.me/abbos_rakhmonov",
-        icon: <FaTelegramPlane />,
-      },
-      {
-        id: 4,
-        name: "Github",
-        link: "github.com/abbos-rakhmonov",
-        icon: <FaGithub />,
-      },
-    ],
-  };
+function Overview() {
+  const { profile, loading } = useSelector((state) => state.profile);
+  const { solvedProbloems } = profile;
+  const { problems } = useSelector((state) => state.problems);
   const data = [
     {
       title: "Total",
@@ -79,72 +48,6 @@ function Overview(props) {
       color: "#BF392C",
     },
   ];
-  const problems = [
-    {
-      id: 1,
-      title: "Problem 1",
-    },
-    {
-      id: 2,
-      title: "Problem 2",
-    },
-    {
-      id: 3,
-      title: "Problem 3",
-    },
-    {
-      id: 4,
-      title: "Problem 4",
-    },
-    {
-      id: 5,
-      title: "Problem 5",
-    },
-    {
-      id: 6,
-      title: "Problem 6",
-    },
-    {
-      id: 7,
-      title: "Problem 7",
-    },
-    {
-      id: 8,
-      title: "Problem 8",
-    },
-    {
-      id: 9,
-      title: "Problem 9",
-    },
-    {
-      id: 10,
-      title: "Problem 10",
-    },
-    {
-      id: 11,
-      title: "Problem 11",
-    },
-    {
-      id: 12,
-      title: "Problem 12",
-    },
-    {
-      id: 13,
-      title: "Problem 13",
-    },
-    {
-      id: 14,
-      title: "Problem 14",
-    },
-    {
-      id: 15,
-      title: "Problem 15",
-    },
-    {
-      id: 16,
-      title: "Problem 16",
-    },
-  ];
   const pageTransition = {
     inital: {
       opacity: 0,
@@ -159,7 +62,7 @@ function Overview(props) {
       x: 100,
     },
   };
-  return (
+  return !loading ? (
     <motion.div
       initial={"inital"}
       animate={"in"}
@@ -169,8 +72,8 @@ function Overview(props) {
       className={"user-overview h-100"}
     >
       <div className="row">
-        <div className="col-lg-4 col-md-4 col-sm-12 col-xs-12">
-          {/*<Profile user={user} />*/}
+        <div className="col-lg-4 col-md-4 col-sm-12 col-xs-12 d-flex">
+          <Profile user={profile} />
         </div>
         <div className="col-lg-8 col-md-8 col-sm-12 col-xs-12 d-flex">
           <div className="problems-statistics w-100 d-flex flex-column">
@@ -190,7 +93,7 @@ function Overview(props) {
           </div>
         </div>
         <div className="col-md-12">
-          <SmallProblems data={problems} />
+          <SmallProblems data={problems} solved={solvedProbloems || []} />
         </div>
         {/*<div className="col-md-12">*/}
         {/*  <Heatmap />*/}
@@ -198,6 +101,12 @@ function Overview(props) {
       </div>
       <Outlet />
     </motion.div>
+  ) : (
+    <div className="d-flex justify-content-center align-items-center h-100">
+      <div className="spinner-border text-default" role="status">
+        <span className="visually-hidden">Loading...</span>
+      </div>
+    </div>
   );
 }
 

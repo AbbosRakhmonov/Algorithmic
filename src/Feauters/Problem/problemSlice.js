@@ -15,10 +15,26 @@ export const getProblem = createAsyncThunk(
   }
 );
 
+export const getEducationProblem = createAsyncThunk(
+  "problems/getEducationProblem",
+  async (id, { rejectWithValue }) => {
+    const { ok, data } = await Api()
+      .get(`/education/problem/${id}`)
+      .then((res) => res.data);
+    if (ok) {
+      return data;
+    } else {
+      return rejectWithValue({ message: data });
+    }
+  }
+);
+
 const problemSlice = createSlice({
   name: "problem",
   initialState: {
     problem: null,
+    attempts: [],
+    lastAttempt: [],
     loading: false,
     error: null,
   },
@@ -31,6 +47,17 @@ const problemSlice = createSlice({
       state.problem = action.payload;
     },
     [getProblem.rejected]: (state, action) => {
+      state.loading = false;
+      state.error = action.payload.message;
+    },
+    [getEducationProblem.pending]: (state, action) => {
+      state.loading = true;
+    },
+    [getEducationProblem.fulfilled]: (state, action) => {
+      state.loading = false;
+      state.problem = action.payload;
+    },
+    [getEducationProblem.rejected]: (state, action) => {
       state.loading = false;
       state.error = action.payload.message;
     },

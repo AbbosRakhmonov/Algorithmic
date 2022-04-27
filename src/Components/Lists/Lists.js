@@ -1,30 +1,18 @@
-import React, { useState } from "react";
+import React, { useEffect } from "react";
 import { useLocation } from "react-router-dom";
 import List from "./List";
 import "./for_lists.scss";
+import { useSelector } from "react-redux";
 
-function Lists(props) {
+function Lists() {
+  const { problems } = useSelector((state) => state.education);
   const { pathname } = useLocation();
+  const oldPath = pathname.split("/").splice(0, 4).join("/");
   const active = pathname.split("/")[4] || 1;
-  const data = [
-    {
-      id: 1,
-      title: "Task 1",
-      status: "accepted",
-    },
-    {
-      id: 2,
-      title: "Task 2",
-      status: "error",
-    },
-    {
-      id: 3,
-      title: "Task 3",
-    },
-  ];
+  useEffect(() => {});
   return (
     <ul className="list-group tasks-list">
-      {data.map((task, index) => (
+      {problems.map((task, index) => (
         <List
           key={index}
           index={index}
@@ -32,7 +20,7 @@ function Lists(props) {
           id={task.id}
           active={active}
           title={task.title}
-          path={`${task.id}`}
+          path={`${oldPath + "/" + (index + 1)}`}
         />
       ))}
     </ul>

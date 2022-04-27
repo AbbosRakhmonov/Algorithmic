@@ -29,8 +29,12 @@ export default function Navbar({ user }) {
     <nav className="navbar">
       <div className="profile-badge">
         <NavLink
-          className={"profile-container"}
-          to={user ? `profile/${user.unique_name}` : "/"}
+          className={`profile-container ${
+            activePath === "profile" && "active"
+          }`}
+          to={{
+            pathname: user ? `profile/${user.nameid}` : "/",
+          }}
         >
           {imageSrc && (
             <img

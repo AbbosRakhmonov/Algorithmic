@@ -6,17 +6,29 @@ import Select from "../../Components/Select/Select";
 import Submit_Button from "../../Components/Buttons/Submit_Button";
 import Table from "../../Components/Table/Table";
 import Lists from "../../Components/Lists/Lists";
-import "./for_education_tasks.scss";
 import { useDispatch, useSelector } from "react-redux";
 import { getCompiler } from "../../Components/Select/selectSlice";
+import { useParams } from "react-router-dom";
+import { getThemeProblems } from "./educationSlice";
+import { getEducationProblem } from "../Problem/problemSlice";
+import { useNavigate } from "react-router-dom";
+import "./for_education_tasks.scss";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import AttemptsAccordion from "../../Components/Accordion/attemptsAccordion";
 
 function EducationTasks() {
+  const { title, problem_index } = useParams();
+  const navigate = useNavigate();
+
   const dispatch = useDispatch();
   const { compiler } = useSelector((state) => state.compilers);
-  const { attempts } = useSelector((state) => state.education);
+  const { attempts, problems } = useSelector((state) => state.education);
+  const { isLoggedIn } = useSelector((state) => state.login);
 
   const [value, setValue] = useState("");
   const [submits, setSubmits] = useState([]);
+
   const propForTable = {
     page: "education",
     data: submits,
@@ -29,7 +41,19 @@ function EducationTasks() {
     dispatch(getCompiler(e.target.value));
   };
   const submit = () => {
-    console.log(value);
+    if (isLoggedIn) {
+      console.log(value);
+    } else {
+      toast.warn(`Please Sign (in / up) to submit`, {
+        position: "top-right",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });
+    }
   };
   const pageTransition = {
     initial: {
@@ -47,7 +71,15 @@ function EducationTasks() {
   };
   useEffect(() => {
     dispatch(getCompiler("cpp"));
+    dispatch(getThemeProblems(title));
   }, [dispatch]);
+  useEffect(() => {
+    if (problems.length !== 0) {
+      if (problems.length >= Number(problem_index))
+        dispatch(getEducationProblem(problems[problem_index - 1].id));
+      else navigate("*");
+    }
+  }, [dispatch, problems]);
   useEffect(() => {
     if (compiler) {
       setValue(compiler.sample);
@@ -90,8 +122,9 @@ function EducationTasks() {
         </main>
       </div>
       <div className="col-4 h-100 tasks-container">
-        <Lists />
+        <Lists title={title} />
       </div>
+      <ToastContainer />
     </motion.section>
   );
 }

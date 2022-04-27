@@ -27,9 +27,13 @@ function Card({ dataAosDelay }) {
               </div>
               <div className="card-text-container">
                 <p className="card-text">
-                  Lorem Ipsum is simply dummy text of the printing and
-                  typesetting industry. Lorem Ipsum has been the industry's
-                  standard dummy text ever since the 1500s
+                  Algorithmic – bu O’zbekistonda CP - Competitive Programming
+                  (Sport Dasturlash) ni rivojlanishiga o’z hissasini qo’shishni
+                  maqasad qilib qo’ygan "Dasturchilar Klubi" tomonidan ishlab
+                  chiqilgan platforma bo’lib, bunda siz doimiy tarzda qo’shib
+                  boriladigan yangiliklar, bir - biridan qiziq aqliy salohiyatni
+                  oshiradigan masalalar orqali o’z bilimingizni orttirishingiz
+                  mumkin bo’ladi.
                 </p>
               </div>
               <div className={"full-content"}>

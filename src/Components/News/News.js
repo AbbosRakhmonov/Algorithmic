@@ -1,6 +1,6 @@
 import React from "react";
 import "./for_news.scss";
-import news from "../../icons/algorithmic news.jpg";
+import news from "../../icons/logo-v-1.png";
 
 function News() {
   return (

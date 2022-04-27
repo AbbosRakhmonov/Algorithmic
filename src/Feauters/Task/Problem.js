@@ -35,7 +35,7 @@ function Problem() {
           <span className="conf-icon">
             <IoFlash />
           </span>
-          <span className="conf-title">{problem.difficulty}%</span>
+          <span className="conf-title">{problem.difficulty || 0}%</span>
         </div>
         <div className={`conf-item`}>
           <span className="conf-icon">

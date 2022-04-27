@@ -1,23 +1,20 @@
 import React, { useEffect } from "react";
 import { profileLinks } from "../../Components/Navbar/Path";
-import {
-  NavLink,
-  Routes,
-  Route,
-  Navigate,
-  useNavigate,
-} from "react-router-dom";
+import { NavLink, Routes, Route, Navigate } from "react-router-dom";
 import Overview from "./Overview";
 import Submissions from "./Submissions";
 import Problems from "./Problems_Solved";
 import { motion } from "framer-motion";
 import "./for_profile.scss";
 import Main from "../../Components/Modal/Main";
-import { useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
+import { getProblems } from "../Problems/problemsSlice";
+import { getUser } from "./profileSlice";
+import { useParams } from "react-router-dom";
 
-function Profile({ obj }) {
-  const navigate = useNavigate();
-  const { user } = useSelector((state) => state.login);
+function Profile() {
+  const { id } = useParams();
+  const dispatch = useDispatch();
   const pageTransition = {
     initial: {
       opacity: 0,
@@ -33,10 +30,9 @@ function Profile({ obj }) {
     },
   };
   useEffect(() => {
-    if (!user) {
-      navigate("/");
-    }
-  }, [user, navigate]);
+    dispatch(getUser(id));
+    dispatch(getProblems());
+  }, [id, dispatch]);
   return (
     <motion.section
       initial={"initial"}

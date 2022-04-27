@@ -11,9 +11,9 @@ function List({ active, path, index, title, status, id }) {
     >
       <NavLink
         to={path}
-        className={`btn tasks-link ${Number(active) === id && "active"}`}
+        className={`btn tasks-link ${Number(active) === index + 1 && "active"}`}
       >
-        {title}
+        Task {index + 1}. {title}
       </NavLink>
       {status ? <Checkmarks status={status} /> : null}
     </li>

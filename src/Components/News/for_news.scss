@@ -19,15 +19,19 @@
   }
   .news-content {
     img {
-      width: 100%;
+      width: 70%;
       height: auto;
+      display: block;
+      margin: 0 auto 40px auto;
+      -webkit-user-drag: none;
     }
     .news-title {
       font-family: "Open-Sans-Semibold",sans-serif;
       font-size: 2rem;
       color: c.$text-color-bold;
-      margin-bottom: 1rem;
+      margin-bottom: 2rem;
       margin-top: 1rem;
+      text-align: center;
     }
     .news-text {
       font-family: "Open-Sans",sans-serif;

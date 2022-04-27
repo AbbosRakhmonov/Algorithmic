@@ -38,7 +38,6 @@
       font-size: 14px;
       color: c.$text-color-bold;
       text-align: start;
-      text-overflow: ellipsis;
       box-shadow: 0 5px 15px rgba(0, 0, 0, 0.03);
 
       &:not(.active) {
@@ -51,6 +50,10 @@
       &:focus {
         box-shadow: none;
       }
+    }
+
+    .tasks-link {
+      text-overflow: ellipsis;
     }
 
     .active {

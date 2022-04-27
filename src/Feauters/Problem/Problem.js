@@ -14,22 +14,43 @@ import "./for_problem.scss";
 import { getProblem } from "./problemSlice";
 import { getCompiler } from "../../Components/Select/selectSlice";
 import { useDispatch, useSelector } from "react-redux";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import AttemptsAccordion from "../../Components/Accordion/attemptsAccordion";
 
 const Home = lazy(() => import("../Task/Problem"));
 const Attempts = lazy(() => import("./Attempts"));
 
 function Problem({ toogleOffCanvas }) {
+  const { isLoggedIn } = useSelector((state) => state.login);
   const { id } = useParams();
   const dispatch = useDispatch();
   const { compiler } = useSelector((state) => state.compilers);
   const { pathname } = useLocation();
   const activePath = pathname.split("/")[4] ? pathname.split("/")[4] : "";
   const [value, setValue] = useState("");
+  const [accordionVisible, setAccordionVisible] = useState(false);
+  const handleChange = () => {
+    setAccordionVisible(!accordionVisible);
+  };
   const chooseLanguage = (e) => {
     dispatch(getCompiler(e.target.value));
   };
+
   const submit = () => {
-    console.log(value);
+    if (isLoggedIn) {
+      console.log(value);
+    } else {
+      toast.warn(`Please Sign (in / up) to submit`, {
+        position: "top-right",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });
+    }
   };
   const pageTransition = {
     in: {
@@ -41,8 +62,6 @@ function Problem({ toogleOffCanvas }) {
   };
   useEffect(() => {
     dispatch(getCompiler("cpp"));
-  }, [dispatch]);
-  useEffect(() => {
     dispatch(getProblem(id));
   }, [dispatch]);
   useEffect(() => {
@@ -70,7 +89,13 @@ function Problem({ toogleOffCanvas }) {
                 path={link.path}
                 title={link.title}
                 icon={link.icon}
-                className={link.id === 3 ? "btn disabled" : ""}
+                className={
+                  link.id === 3
+                    ? "btn disabled"
+                    : link.id === 2 && !isLoggedIn
+                    ? "btn disabled"
+                    : "btn"
+                }
                 isActive={
                   activePath === link.title.toLowerCase() ||
                   link.childTitles.includes(activePath.toLowerCase())
@@ -115,11 +140,16 @@ function Problem({ toogleOffCanvas }) {
                 setValue={setValue}
                 mode={compiler ? compiler.type : "text/x-c++src"}
               />
+              <AttemptsAccordion
+                handleChange={handleChange}
+                accordionVisible={accordionVisible}
+              />
               <Submit_Button onClick={submit} />
             </div>
           </Split>
         </div>
       </div>
+      <ToastContainer />
     </motion.section>
   );
 }
