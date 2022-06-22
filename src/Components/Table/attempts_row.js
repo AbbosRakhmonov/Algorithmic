@@ -2,14 +2,24 @@ import React from "react";
 import { Link } from "react-router-dom";
 
 function AttemptsRow({ data, fields, dataAos }) {
-  const convertDateWithTime = (date) => {
-    const dateObj = new Date(date);
-    const month = dateObj.getUTCMonth() + 1;
-    const day = dateObj.getUTCDate();
-    const year = dateObj.getUTCFullYear();
-    const hours = dateObj.getUTCHours();
-    const minutes = dateObj.getUTCMinutes();
-    return `${month}/${day}/${year} ${hours}:${minutes}`;
+  // const convertDateWithTime = (date) => {
+  //   const dateObj = new Date(date);
+  //   const month = dateObj.getUTCMonth() + 1;
+  //   const day = dateObj.getUTCDate();
+  //   const year = dateObj.getUTCFullYear();
+  //   const hours = dateObj.getUTCHours();
+  //   const minutes = dateObj.getUTCMinutes();
+  //   return `${month}/${day}/${year} ${hours}:${minutes}`;
+  // };
+  const changeStatus = (field) => {
+    switch (field) {
+      case "ok":
+        return "accepted";
+      case "inqueue":
+        return "";
+      default:
+        return "error";
+    }
   };
   return (
     <>
@@ -25,11 +35,22 @@ function AttemptsRow({ data, fields, dataAos }) {
               <td key={idx}>
                 {field === "status" ? (
                   <h3
-                    className={`table-row-text ${
-                      item[field].toLowerCase() === "ok" ? "accepted" : ""
-                    }`}
+                    className={`table-row-text ${changeStatus(
+                      item[field].toLowerCase()
+                    )}`}
                   >
-                    {item[field]}
+                    {item[field] === "InQueue" ? (
+                      <div className="text-center">
+                        <div
+                          className="spinner-border spinner-border-sm"
+                          role="status"
+                        >
+                          <span className="visually-hidden">Loading...</span>
+                        </div>
+                      </div>
+                    ) : (
+                      item[field]
+                    )}
                   </h3>
                 ) : field === "solver" ? (
                   <h3 className={`table-row-text`}>
@@ -47,7 +68,8 @@ function AttemptsRow({ data, fields, dataAos }) {
                   </h3>
                 ) : field === "date" ? (
                   <h3 className={`table-row-text`}>
-                    {convertDateWithTime(item[field])}
+                    {/* {convertDateWithTime(item[field])} */}
+                    {item[field]}
                   </h3>
                 ) : (
                   <h3 className={`table-row-text`}>{item[field]}</h3>

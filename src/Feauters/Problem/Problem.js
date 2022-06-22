@@ -11,7 +11,7 @@ import { AnimatePresence, motion } from "framer-motion";
 import Select from "../../Components/Select/Select";
 import Submit_Button from "../../Components/Buttons/Submit_Button";
 import "./for_problem.scss";
-import { getProblem } from "./problemSlice";
+import { getProblem, submitAnswer, setLastSubmit } from "./problemSlice";
 import { getCompiler } from "../../Components/Select/selectSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { ToastContainer, toast } from "react-toastify";
@@ -26,6 +26,7 @@ function Problem({ toogleOffCanvas }) {
   const { id } = useParams();
   const dispatch = useDispatch();
   const { compiler } = useSelector((state) => state.compilers);
+  const { lastAttempt } = useSelector((state) => state.problem);
   const { pathname } = useLocation();
   const activePath = pathname.split("/")[4] ? pathname.split("/")[4] : "";
   const [value, setValue] = useState("");
@@ -39,7 +40,21 @@ function Problem({ toogleOffCanvas }) {
 
   const submit = () => {
     if (isLoggedIn) {
-      console.log(value);
+      const data = {
+        lang: compiler.lang,
+        problemId: id,
+        code: value,
+      };
+      dispatch(
+        setLastSubmit({
+          id: 1,
+          status: "InQueue",
+          language: compiler.displayName,
+          date: new Date().toLocaleString(),
+        })
+      );
+      setAccordionVisible(true);
+      dispatch(submitAnswer(data));
     } else {
       toast.warn(`Please Sign (in / up) to submit`, {
         position: "top-right",
@@ -143,6 +158,7 @@ function Problem({ toogleOffCanvas }) {
               <AttemptsAccordion
                 handleChange={handleChange}
                 accordionVisible={accordionVisible}
+                data={lastAttempt}
               />
               <Submit_Button onClick={submit} />
             </div>

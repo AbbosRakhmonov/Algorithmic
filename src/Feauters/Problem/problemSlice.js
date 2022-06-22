@@ -29,6 +29,27 @@ export const getEducationProblem = createAsyncThunk(
   }
 );
 
+export const submitAnswer = createAsyncThunk(
+  "problems/submitAnswer",
+  async (payload, { rejectWithValue }) => {
+    const { ok, data } = await Api()
+      .post("/attempts", payload)
+      .then((res) => res.data);
+    if (ok) {
+      const res = await Api()
+        .get(`/attempts/check/${data}`)
+        .then(() =>
+          Api()
+            .get(`/attempts/status/${data}`)
+            .then((res) => res.data)
+        );
+      return res;
+    } else {
+      return rejectWithValue({ message: data });
+    }
+  }
+);
+
 const problemSlice = createSlice({
   name: "problem",
   initialState: {
@@ -36,7 +57,14 @@ const problemSlice = createSlice({
     attempts: [],
     lastAttempt: [],
     loading: false,
+    problemSubmitted: false,
     error: null,
+  },
+  reducers: {
+    setLastSubmit: (state, { payload }) => {
+      state.lastAttempt = [{ ...payload }];
+      state.attempts.push({ ...payload });
+    },
   },
   extraReducers: {
     [getProblem.pending]: (state, action) => {
@@ -61,7 +89,15 @@ const problemSlice = createSlice({
       state.loading = false;
       state.error = action.payload.message;
     },
+    [submitAnswer.pending]: (state) => {
+      state.problemSubmitted = true;
+    },
+    [submitAnswer.fulfilled]: (state, { payload }) => {
+      state.problemSubmitted = false;
+      state.lastAttempt[0].status = payload;
+    },
   },
 });
 
+export const { setLastSubmit } = problemSlice.actions;
 export default problemSlice.reducer;

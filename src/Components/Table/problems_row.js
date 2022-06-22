@@ -24,7 +24,7 @@ function ProblemsRow({ data, fields, dataAos }) {
               field === "stat" ? (
                 <td key={index}>
                   <span>
-                    {item[field] === null ? (
+                    {item[field] === null || "Result not found" ? (
                       <IoRemove className="status-icon" title={"Todo"} />
                     ) : item[field] === "ok" ? (
                       <IoCheckmark
